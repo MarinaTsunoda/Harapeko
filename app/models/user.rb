@@ -7,4 +7,5 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :visits, dependent: :destroy
   enum sex: { male:0, female:1, other:2 }
+  has_one_attached :profile_image
 end
