@@ -6,11 +6,41 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
-    <%= yield %>
+    <header>
+      <h1>はらぺこ</h1>
+      <div>
+        <%= link_to search_path do %>
+          <i class="far fa-home-alt fa-sm"></i>
+          <p>検索</p>
+        <% end %>
+      </div>
+      <div>
+        <%= link_to posts_path do %>
+          <i class="far fa-utensils fa-sm"></i>
+          <p>タイムライン</p>
+        <% end %>
+      </div>
+      <div>
+        <!--<= link_to posts_path(Post.favorites.user_id: current_user.id) do %>-->
+          <i class="far fa-heart fa-sm"></i>
+          <p>お気に入り</p>
+        <!--< end %>-->
+      </div>
+      <div>
+        <!--<= link_to user_path(current_user.id) do %>-->
+          <i class="far fa-user fa-sm"></i>
+          <p>マイページ</p>
+        <!--< end %>-->
+      </div>
+    </header>
+    <main>
+      <%= yield %>
+    </main>
+    <footer>
+    </footer>
   </body>
 </html>

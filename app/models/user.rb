@@ -8,4 +8,10 @@ class User < ApplicationRecord
   has_many :visits, dependent: :destroy
   enum sex: { male:0, female:1, other:2 }
   has_one_attached :profile_image
+  
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+    end
+  end
 end
