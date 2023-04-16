@@ -30,6 +30,9 @@ Rails.application.routes.draw do
     resources :posts do
       resource :favorites, only: [:create, :destroy,]
       resource :visits, only: [:create, :destroy]
+      collection do
+        get 'search'
+      end
     end
 
     root to: 'homes#top'

@@ -4,7 +4,7 @@ class CreatePosts < ActiveRecord::Migration[6.1]
       t.integer :user_id, :null => false
       t.integer :shop_id, :null => false
       t.string :name, :null => false
-      t.integer :star, :null => false
+      t.float :rate, :null => false
       t.integer :price, :null => false
       t.timestamps
     end

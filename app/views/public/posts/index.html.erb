@@ -1,2 +1,13 @@
-<h1>Public::Posts#index</h1>
-<p>Find me in app/views/public/posts/index.html.erb</p>
+<h4>
+  <% if params[:favorite_id].present? %>
+    お気に入り一覧
+  <% elsif params[:visit_id].present? %>
+    訪問済み一覧
+  <% elsif params[:keyword].present? %>
+    検索結果
+  <% else %>
+    タイムライン
+  <% end %>
+</h4>
+
+<%= render 'list', posts:@posts %>

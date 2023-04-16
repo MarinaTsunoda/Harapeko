@@ -1,2 +1,48 @@
-<h1>Public::Posts#new</h1>
-<p>Find me in app/views/public/posts/new.html.erb</p>
+<%= form_with model: @post do |f| %>
+  <%= f.file_field:image, accept:"image/*" %>
+  <%= f.text_field :name, class:"form-control", placeholder:"商品名" %>
+  <%= f.text_field :star, class:"form-control" %>
+  <%= f.text_field :price, class:"form-control", placeholder:"価格（税込）" %>
+  <div class="form-group row" id="rate">
+    <%= f.label :rate,'評価 ', class:'col-md-3 col-form-label' %>
+    <%= f.hidden_field :rate, id: :review_rate %>
+　　　　</div>
+  <script>
+　$('#rate').empty();
+  $('#rate').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    scoreName: 'post[rate]'
+    half: true,
+  });
+  </script>
+  <button type="button" class="btn btn-primary mb-12" data-toggle="modal" data-target="#postModal">タグを選択</button>
+  <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">タグ選択画面</h4></h4>
+          </div>
+          <div class="modal-body">
+            <div class='form-group'>
+              <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+                <div class='form-check'>
+                  <%= tag.label class: 'form-check-label' do %>
+                    <%= tag.check_box class: 'form-check-input' %>
+                    <%= tag.text %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>店舗を検索</p>
+    
+  <%= f.submit '投稿', class:"btn btn-lg btn-block btn-info mt-4" %>
+<% end %>

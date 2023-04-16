@@ -60,3 +60,5 @@ gem 'devise'
 gem 'kaminari'
 
 gem 'enum_help'
+
+gem 'dotenv-rails'
