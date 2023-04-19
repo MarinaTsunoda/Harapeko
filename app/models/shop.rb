@@ -1,4 +1,4 @@
 class Shop < ApplicationRecord
-  has_many :posts, dependent: :destroy
+  belongs_to :post
   has_one_attached :logo_image
 end

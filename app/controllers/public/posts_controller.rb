@@ -1,6 +1,7 @@
 class Public::PostsController < ApplicationController
   def new
     @post = Post.new
+    @tag_genres = TagGenre.all
   end
 
   def create
@@ -54,5 +55,6 @@ class Public::PostsController < ApplicationController
   end
   private
   def post_params
-    params.require(:post).permit(:user_id, :shop_id, :name, :price, :rate)
+    params.require(:post).permit(:user_id, :shop_id, :name, :price, :star, tag_ids: [])
+  end
 end

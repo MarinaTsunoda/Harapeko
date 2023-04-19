@@ -1,0 +1,2 @@
+module Admin::TagGenresHelper
+end

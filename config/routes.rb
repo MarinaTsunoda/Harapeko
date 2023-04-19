@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :posts, only: [:index, :show, :update]
     resources :users, only: [:index, :show, :edit, :update]
-    resources :tags, only: [:index, :create, :destroy]
+    resources :tags, only: [:index, :create, :destroy, :update]
+    resources :tag_genres, only: [:create, :destroy, :update]
   end
   get 'admin' => 'admin/homes#top', as:'top'
 
@@ -18,13 +19,14 @@ Rails.application.routes.draw do
   devise_scope :user do
     post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
   end
-  
+
   scope module: :public do
     get 'users/information/edit' => 'users#edit'
     patch 'users/information' => 'users#update'
     get 'users/my_page' => 'users#my_page'
     get 'users/unsubscribe' => 'users#unsubscribe'
     patch 'users/withdraw' => 'users#withdraw'
+    get 'shops/search' => 'shops#search'
     resources :users, only: [:show]
 
     resources :posts do
@@ -38,6 +40,6 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     get 'search' => 'homes#search', as:'search'
     get 'tag_select' => 'homes#tag_select', as:'tag_select'
-    
+
   end
 end
