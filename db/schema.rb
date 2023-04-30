@@ -76,17 +76,6 @@ ActiveRecord::Schema.define(version: 2023_04_17_003522) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "shops", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "address", null: false
-    t.string "station_name", null: false
-    t.string "open", null: false
-    t.string "close", null: false
-    t.string "tel", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "tag_genres", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
