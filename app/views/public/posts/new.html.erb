@@ -55,6 +55,6 @@
     <%= f.hidden_field :shop_id, value: @shop['id'] %>
   <% end %>
 
-  <!--<= f.hidden_field :user_id, :value => current_user.id %>  -->
+  <%= f.hidden_field :user_id, :value => current_user.id %>  
   <%= f.submit '投稿', class:"btn btn-lg btn-block btn-info mt-4" %>
 <% end %>

@@ -13,7 +13,7 @@ class Public::PostsController < ApplicationController
 
       uri = "http://webservice.recruit.co.jp/hotpepper/gourmet/v1/"
       api_key = ENV['API_KEY']
-    
+
       url = uri << "?key=" << api_key << "&hit_per_page=100" << "&id=" << URI.encode_www_form_component(id)
 
       uri = URI.parse(url)
@@ -49,6 +49,35 @@ class Public::PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @tags = @post.tags
+    begin
+      id = @post.shop_id.to_i
+
+      require 'open-uri'
+      require 'json'
+      require 'active_support'
+      require 'active_support/core_ext'
+
+      uri = "http://webservice.recruit.co.jp/hotpepper/gourmet/v1/"
+      api_key = ENV['API_KEY']
+
+      url = uri << "?key=" << api_key << "&hit_per_page=100" << "&id=" << URI.encode_www_form_component(id)
+
+      uri = URI.parse(url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      request = Net::HTTP::Get.new(uri.request_uri)
+      response = http.request(request)
+
+      hash = Hash.from_xml response.body
+
+      if hash.has_key?("results")
+        if hash["results"]["results_available"].to_i > 0
+          @shop = hash.dig("results","shop")
+        end
+      else
+        @error = "エラーが発生しました"
+      end
+    end
   end
 
   def index
@@ -85,6 +114,6 @@ class Public::PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:user_id, :shop_id, :name, :price, :star, tag_ids: [])
+    params.require(:post).permit(:user_id, :shop_id, :name, :price, :star, :image, tag_ids: [])
   end
 end

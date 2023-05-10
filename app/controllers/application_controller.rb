@@ -5,8 +5,8 @@ class ApplicationController < ActionController::Base
     case resource
     when Admin
       top_path
-    when Customer
-      serch_path
+    when User
+      search_path
     end
  end
 
@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     case resource
     when :admin
       new_admin_session_path
-    when :customer
+    when :user
       root_path
     end
  end

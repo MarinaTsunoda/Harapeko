@@ -1,4 +1,7 @@
-<div id="star-rate<%= @book.id%>">
+<%= image_tag @post.image %>
+<%= @post.name %>
+<%= @post.price %>
+<div id="star-rate<%= @post.id%>">
   <script>
     $('#star-rate<%= @post.id %>').empty();
     $('#star-rate<%= @post.id%>').raty({
@@ -7,7 +10,11 @@
       starOn    : '<%= asset_path('star-on.png') %>',
       half      : true,
       readOnly: true,
-      score: <%= @post.rate %>,
+      score: <%= @post.star %>,
     });
   </script>
 </div>
+<%= @tags.each do |tag| %>
+  <%= tag.name %>
+<% end %>
+<%= image_tag @shop.dig('photo', 'pc', 's') %> 店名：<%= @shop["name"] %> : 住所：<%= @shop["address"] %>
