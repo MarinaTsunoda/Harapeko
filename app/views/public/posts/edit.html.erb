@@ -1,2 +1,60 @@
-<h1>Public::Posts#edit</h1>
-<p>Find me in app/views/public/posts/edit.html.erb</p>
+<%= form_with model: @post, url: post_path(@post.id), method: :update do |f| %>
+  <%= f.file_field :image, accept:"image/*" %>
+  <%= f.text_field :name, class:"form-control" %>
+  <%= f.text_field :price, class:"form-control" %>
+
+  <!--raty.jsにて星を表示-->
+  <div class="form-group row">
+    <%= f.label :star,'評価', class:'col-md-3 col-form-label' %>
+    <div id="star"></div>
+　</div>
+  <script>
+  var elem = document.getElementById('star')
+　　elem.innerHTML = '';
+　　raty(elem,{
+      size     : 36,
+      starOff: '<%= asset_path('star-off.png') %>',
+      starOn : '<%= asset_path('star-on.png') %>',
+      starHalf: '<%= asset_path('star-half.png') %>',
+      scoreName: 'post[star]',
+      half: true,
+    });
+  </script>
+  <!--星表示ここまで-->
+
+  <!--モーダルウィンドウにてタグ選択画面を表示-->
+  <button type="button" class="btn btn-primary mb-12" data-toggle="modal" data-target="#postModal">タグを選択</button>
+  <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">タグ選択画面</h4>
+          </div>
+          <div class="modal-body">
+            <div class='form-group'>
+              <% @tag_genres.each do |tag_genre| %>
+                <%= tag_genre.name %>
+                <%= f.collection_check_boxes(:tag_ids, Tag.where(tag_genre_id: tag_genre.id), :id, :name) do |tag| %>
+                  <%= tag.check_box %>
+                  <%= tag.text %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--モーダルウィンドウでのタグ表示ここまで-->
+
+  <%= link_to '店舗検索画面', shops_search_path %>
+  <% if params[:select_shop].present? %>
+    <%= image_tag @shop.dig('photo', 'pc', 's') %> 店名：<%= @shop["name"] %> : 住所：<%= @shop["address"] %>
+    <%= f.hidden_field :shop_id, value: @shop['id'] %>
+  <% end %>
+
+  <%= f.hidden_field :user_id, :value => current_user.id %>  
+  <%= f.submit '投稿', class:"btn btn-lg btn-block btn-info mt-4" %>
+<% end %>

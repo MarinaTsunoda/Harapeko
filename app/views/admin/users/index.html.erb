@@ -15,7 +15,7 @@
       <td><%= user.email %></td>
       <td><%= user.birth_date %></td>
       <td>
-        <% if customer.is_deleted %>
+        <% if user.is_deleted %>
           <span class="text-secondary font-weight-bold">退会</span>
         <% elsif %>
           <span class="text-success font-weight-bold">有効</span>
@@ -23,3 +23,4 @@
       </td>
     </tr>
   </table>
+<% end %>

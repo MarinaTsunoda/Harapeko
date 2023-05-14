@@ -33,6 +33,7 @@ class Public::ShopsController < ApplicationController
               photo: shop["photo"]["pc"]["s"],
               # url: shop["url"],
               address: shop["address"],
+              large_area: shop["large_area"]["name"],
               # station_name: shop["station_name"],
               # open: shop["open"],
               # close: shop["close"],

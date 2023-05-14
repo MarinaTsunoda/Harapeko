@@ -9,5 +9,32 @@
     タイムライン
   <% end %>
 </h4>
-
+<button type="button" class="btn btn-primary mb-12" data-toggle="modal" data-target="#postModal">絞り込み</button>
+  <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">絞り込み条件を選択</h4>
+        </div>
+        <div class="modal-body">
+          <div class='form-group'>
+            <%= form_with url: search_posts_path, local: true, method: :get do |f| %>
+            
+              <% Post.select(:shop_large_area).distinct.all.each do |post| %>
+                <label>
+                  <%= f.check_box :area_names, {multiple: true}, post.shop_large_area, nil %>
+                  <%= post.shop_large_area %>
+                </label>
+              <% end %>
+  
+              <%= f.submit "検索" %>
+            <% end %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <%= render 'list', posts:@posts %>

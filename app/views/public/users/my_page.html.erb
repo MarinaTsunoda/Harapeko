@@ -1,3 +1,40 @@
-<%=form_with model: @user, url: users_withdraw_path, method: :patch do |f| %>
+<table>
+  <tr>
+    <th>名前</th>
+    <td><%= current_user.last_name %> <%= current_user.first_name %></td>
+  </tr>
+  <tr>
+    <th>フリガナ</th>
+    <td><%= current_user.last_name_kana %> <%= current_user.first_name_kana %></td>
+  </tr>
+  <tr>
+    <th>郵便番号（ハイフンなし）</th>
+    <td><%= current_user.postal_code %></td>
+  </tr>
+  <tr>
+    <th>住所</th>
+    <td><%= current_user.address %></td>
+  </tr>
+  <tr>
+    <th>メールアドレス</th>
+    <td><%= current_user.email %></td>
+  </tr>
+  <tr>
+    <th>電話番号（ハイフンなし）</th>
+    <td><%= current_user.telephone_number %></td>
+  </tr>
+  <tr>
+    <th>生年月日</th>
+    <td><%= current_user.birth_date %></td>
+  </tr>
+  <tr>
+    <th>性別</th>
+    <td><%= current_user.sex_i18n %></td>
+  </tr>
+</table>
+
+<%= link_to "登録情報編集", edit_user_path(current_user.id) %>
+
+<%= form_with model: @user, url: users_withdraw_path, method: :patch do |f| %>
   <%= f.submit '退会する', data: { confirm: '本当に退会しますか？' }, class:"btn btn-danger px-4 mt-3 ml-3" %>
 <% end %>

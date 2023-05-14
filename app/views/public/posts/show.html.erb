@@ -1,3 +1,31 @@
+<!--いいねボタン-->
+<% if @post.favorited_by?(current_user) %>
+  <p>
+    <%= link_to post_favorites_path(@post), method: :delete do %>
+      ♥<%= @post.favorites.count %> いいね
+    <% end %>
+  </p>
+  <% else %>
+  <p>
+    <%= link_to post_favorites_path(@post), method: :post do %>
+      ♡<%= @post.favorites.count %> いいね
+    <% end %>
+  </p>
+<% end %>
+<!--訪問済みボタン-->
+<% if @post.visited_by?(current_user) %>
+  <p>
+    <%= link_to post_visits_path(@post), method: :delete do %>
+      ♥<%= @post.visits.count %> いいね
+    <% end %>
+  </p>
+  <% else %>
+  <p>
+    <%= link_to post_visits_path(@post), method: :post do %>
+      ♡<%= @post.visits.count %> いいね
+    <% end %>
+  </p>
+<% end %>
 <%= image_tag @post.image %>
 <%= @post.name %>
 <%= @post.price %>
@@ -18,3 +46,8 @@
   <%= tag.name %>
 <% end %>
 <%= image_tag @shop.dig('photo', 'pc', 's') %> 店名：<%= @shop["name"] %> : 住所：<%= @shop["address"] %>
+
+<%= link_to "編集", edit_post_path %>
+<%= form_with model: @post, url: post_path(@post.id), method: :delete do |f| %>
+  <%= f.submit '削除', data: { confirm: '本当に削除しますか？' }, class:"btn btn-danger px-4 mt-3 ml-3" %>
+<% end %>

@@ -1,7 +1,19 @@
 <% posts.each do |post| %>
-  <div class = "card">
-    <%= image_tag post.image %>
-    <%= post.name %>
-    <%= post.star %>
-  </div>
+  <% if user_signed_in? %>
+    <%= link_to post_path(post.id) do %>
+      <div class = "card">
+        <%= image_tag post.image %>
+        <%= post.name %>
+        <%= post.star %>
+      </div>
+    <% end %>
+  <% elsif admin_signed_in? %>
+    <%= link_to admin_post_path(post.id) do %>
+      <div class = "card">
+        <%= image_tag post.image %>
+        <%= post.name %>
+        <%= post.star %>
+      </div>
+    <% end %>
+  <% end %>
 <% end %>

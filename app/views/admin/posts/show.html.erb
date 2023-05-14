@@ -1,2 +1,24 @@
-<h1>Admin::Posts#show</h1>
-<p>Find me in app/views/admin/posts/show.html.erb</p>
+<%= image_tag @post.image %>
+<%= @post.name %>
+<%= @post.price %>
+<div id="star-rate<%= @post.id%>">
+  <script>
+    $('#star-rate<%= @post.id %>').empty();
+    $('#star-rate<%= @post.id%>').raty({
+      size      : 36,
+      starOff   : '<%= asset_path('star-off.png') %>',
+      starOn    : '<%= asset_path('star-on.png') %>',
+      half      : true,
+      readOnly: true,
+      score: <%= @post.star %>,
+    });
+  </script>
+</div>
+<%= @tags.each do |tag| %>
+  <%= tag.name %>
+<% end %>
+<%= image_tag @shop.dig('photo', 'pc', 's') %> 店名：<%= @shop["name"] %> : 住所：<%= @shop["address"] %>
+
+<%= form_with model: @post, url: admin_post_path(@post.id), method: :delete do |f| %>
+  <%= f.submit '削除', data: { confirm: '本当に削除しますか？' }, class:"btn btn-danger px-4 mt-3 ml-3" %>
+<% end %>

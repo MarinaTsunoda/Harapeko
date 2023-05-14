@@ -25,34 +25,36 @@
   <!--モーダルウィンドウにてタグ選択画面を表示-->
   <button type="button" class="btn btn-primary mb-12" data-toggle="modal" data-target="#postModal">タグを選択</button>
   <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel">タグ選択画面</h4>
-          </div>
-          <div class="modal-body">
-            <div class='form-group'>
-              <% @tag_genres.each do |tag_genre| %>
-                <%= tag_genre.name %>
-                <%= f.collection_check_boxes(:tag_ids, Tag.where(tag_genre_id: tag_genre.id), :id, :name) do |tag| %>
-                  <%= tag.check_box %>
-                  <%= tag.text %>
-                <% end %>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">タグ選択画面</h4>
+        </div>
+        <div class="modal-body">
+          <div class='form-group'>
+            <% @tag_genres.each do |tag_genre| %>
+              <%= tag_genre.name %>
+              <%= f.collection_check_boxes(:tag_ids, Tag.where(tag_genre_id: tag_genre.id), :id, :name) do |tag| %>
+                <%= tag.check_box %>
+                <%= tag.text %>
               <% end %>
-            </div>
+            <% end %>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
-          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
         </div>
       </div>
     </div>
+  </div>
     <!--モーダルウィンドウでのタグ表示ここまで-->
 
   <%= link_to '店舗検索画面', shops_search_path %>
   <% if params[:select_shop].present? %>
     <%= image_tag @shop.dig('photo', 'pc', 's') %> 店名：<%= @shop["name"] %> : 住所：<%= @shop["address"] %>
-    <%= f.hidden_field :shop_id, value: @shop['id'] %>
+    <%= f.hidden_field :shop_id, value: @shop["id"] %>
+    <%= f.hidden_field :shop_large_area, value: @shop["large_area"]["name"] %>
+    <%= f.hidden_field :shop_midnight_meal, value: @shop['midnight_meal'] %>
   <% end %>
 
   <%= f.hidden_field :user_id, :value => current_user.id %>  

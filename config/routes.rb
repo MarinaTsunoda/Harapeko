@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   namespace :admin do
-    resources :posts, only: [:index, :show, :update]
+    resources :posts, only: [:index, :show, :destroy]
     resources :users, only: [:index, :show, :edit, :update]
     resources :tags, only: [:index, :create, :destroy, :update]
     resources :tag_genres, only: [:create, :destroy, :update]
@@ -24,10 +24,9 @@ Rails.application.routes.draw do
     get 'users/information/edit' => 'users#edit'
     patch 'users/information' => 'users#update'
     get 'users/my_page' => 'users#my_page'
-    get 'users/unsubscribe' => 'users#unsubscribe'
     patch 'users/withdraw' => 'users#withdraw'
     get 'shops/search' => 'shops#search'
-    resources :users, only: [:show]
+    resources :users, only: [:show, :edit, :update]
 
     resources :posts do
       resource :favorites, only: [:create, :destroy,]
@@ -38,8 +37,6 @@ Rails.application.routes.draw do
     end
 
     root to: 'homes#top'
-    get 'search' => 'homes#search', as:'search'
-    get 'tag_select' => 'homes#tag_select', as:'tag_select'
 
   end
 end

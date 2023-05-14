@@ -69,6 +69,8 @@ ActiveRecord::Schema.define(version: 2023_04_17_003522) do
   create_table "posts", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "shop_id", null: false
+    t.string "shop_large_area", null: false
+    t.string "shop_midnight_meal"
     t.string "name", null: false
     t.float "star", null: false
     t.integer "price", null: false
