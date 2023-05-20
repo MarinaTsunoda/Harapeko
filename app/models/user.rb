@@ -23,4 +23,8 @@ class User < ApplicationRecord
       user.telephone_number = "09012345678"
     end
   end
+  
+  def favorited_by?(post_id)
+    favorites.where(post_id: post_id).exists?
+  end
 end

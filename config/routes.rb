@@ -29,13 +29,12 @@ Rails.application.routes.draw do
     resources :users, only: [:show, :edit, :update]
 
     resources :posts do
-      resource :favorites, only: [:create, :destroy,]
-      resource :visits, only: [:create, :destroy]
       collection do
         get 'search'
       end
     end
-
+    post 'favorite/:id' => 'favorites#create', as: 'create_favorite'
+    delete 'favorite/:id' => 'favorites#destroy', as: 'destroy_favorite'
     root to: 'homes#top'
 
   end

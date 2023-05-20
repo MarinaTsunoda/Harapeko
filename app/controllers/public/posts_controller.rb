@@ -35,7 +35,6 @@ class Public::PostsController < ApplicationController
 
   def create
      @post = Post.new(post_params)
-     byebug
      @post.save
      flash[:notice] = "投稿に成功しました"
      redirect_to posts_path

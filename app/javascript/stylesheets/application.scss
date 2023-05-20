@@ -1,1 +1,20 @@
-@import '~bootstrap/scss/bootstrap';
+@use '~bootstrap/scss/bootstrap';
+@use '~@fortawesome/fontawesome-free/scss/fontawesome';
+
+.favorite-link {
+  text-decoration: none;
+}
+
+.favorite-link:hover {
+  background-color: #fff!important;
+}
+
+.favorite-btn {
+  font-size: 15px;
+  color: #808080;
+}
+
+.unfavorite-btn {
+  font-size: 15px;
+  color: #e54747;
+}
