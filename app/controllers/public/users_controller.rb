@@ -11,6 +11,7 @@ class Public::UsersController < ApplicationController
   end
 
   def my_page
+    @posts = current_user.posts.all
   end
 
   def unsubscribe
@@ -25,6 +26,7 @@ class Public::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
   end
+  
   private
   def user_params
     params.require(:user).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :postal_code, :address, :telephone_number, :email)

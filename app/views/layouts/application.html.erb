@@ -10,41 +10,76 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-    <header>
-      <h1>はらぺこ</h1>
-        <% if admin_signed_in? %>
-          <%= link_to "投稿一覧", admin_posts_path, class:"btn btn-light px-4" %>
-          <%= link_to "会員一覧", admin_users_path, class:"btn btn-light px-4" %>
-          <%= link_to "タグ管理", admin_tags_path, class:"btn btn-light px-4" %>
-          <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class:"btn btn-light px-4" %>
-        <% elsif user_signed_in? %>
-          <%= link_to posts_path do %>
-            <i class="far fa-utensils fa-sm"></i>タイムライン
-          <% end %>
-          <%= link_to posts_path do %>
-            <i class="far fa-heart fa-sm"></i>お気に入り
-          <% end %>
-          <%= link_to users_my_page_path do %>
-            <i class="far fa-user fa-sm"></i>マイページ
-          <% end %>
-          <%= link_to destroy_user_session_path, method: :delete do %>
-            <i class="far fa-home-alt fa-sm"></i>ログアウト
-          <% end %>
-        <% else %>
-          <%= link_to users_guest_sign_in_path, method: :post do %>
-            ゲストログイン(閲覧用)
-          <% end %>
-          <%= link_to new_user_registration_path do %>
-            新規登録
-          <% end %>
-          <%= link_to new_user_session_path do %>
-            ログイン
-          <% end %>
-        <% end %>
-      <%= form_with url: search_posts_path, local: true, method: :get do |f| %>
-        <%= f.text_field :keyword %>
-        <%= f.submit "検索" %>
+    <header class="sticky-top">
+      <%= link_to root_path, class:'display-inline-block' do %>
+        <%= image_tag "logo.png", class:"logo" %>
       <% end %>
+      <div class="display-inline-block float-right">
+        <nav class="navbar navbar-expand-md navbar-dark">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <% if admin_signed_in? %>
+                <li><%= link_to "投稿一覧", admin_posts_path, class:"btn btn-light px-4" %></li>
+                <li><%= link_to "会員一覧", admin_users_path, class:"btn btn-light px-4" %></li>
+                <li><%= link_to "タグ管理", admin_tags_path, class:"btn btn-light px-4" %></li>
+                <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class:"btn btn-light px-4" %></li>
+              <% elsif user_signed_in? %>
+                <li>
+                  <%= link_to posts_path do %>
+                    <i class="fas fa-utensils"></i>タイムライン
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to favorite_posts_path do %>
+                    <i class="fas fa-heart"></i>お気に入り
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to users_my_page_path do %>
+                    <i class="fas fa-user-alt"></i>マイページ
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to destroy_user_session_path, method: :delete do %>
+                    <i class="fas fa-sign-out-alt"></i>ログアウト
+                  <% end %>
+                </li>
+              <% else %>
+                <li>
+                  <%= link_to users_guest_sign_in_path, method: :post do %>
+                    ゲストログイン(閲覧用)
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to new_user_registration_path do %>
+                    新規登録
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to new_user_session_path do %>
+                    ログイン
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </nav>
+        <%= form_with url: search_posts_path, local: true, method: :get do |f| %>
+        <table align="right">
+          <tr>
+            <td><%= f.text_field :keyword %></td>
+            <td>
+              <%= f.button :type => "submit" do %>
+                <i class='fas fa-search'></i>
+              <% end %>
+            </td>
+          </tr>
+        </table>
+      <% end %>
+      </div>
     </header>
     <main>
       <%= yield %>

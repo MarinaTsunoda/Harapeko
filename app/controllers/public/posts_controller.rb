@@ -49,7 +49,6 @@ class Public::PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @tags = @post.tags
     begin
       id = @post.shop_id
 
@@ -137,7 +136,6 @@ class Public::PostsController < ApplicationController
     if params[:keyword].present?
       @posts = Post.where('caption LIKE ?', "%#{params[:keyword]}%")
       @keyword = params[:keyword]
-
     elsif params[:area_names].present?
       @posts = Post
       params[:area_names].each_with_index do |area, index|
@@ -147,13 +145,28 @@ class Public::PostsController < ApplicationController
           @posts = @posts.or(Post.where('shop_large_area LIKE ?', "%#{area}%"))
         end
       end
-
-
+    elsif params[:tag_ids].present?
+      @posts = Post
+      params[:tag_ids].each_with_index do |tag, index|
+        if index == 0
+          @posts = @posts.where(tag_id: tag.id)
+        else
+          @posts = @posts.or(Post.where(tag_id: tag.id))
+        end
+      end
     else
       @posts = Post.all
     end
+  end
 
+  def favorite
+    @user = current_user
+    favorites = Favorite.where(user_id: @user.id).pluck(:post_id)
+    @posts = Post.find(favorites)
+  end
 
+  def tag_search
+    @tag_genres = TagGenre.all
   end
 
   private

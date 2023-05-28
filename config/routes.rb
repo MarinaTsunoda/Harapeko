@@ -31,6 +31,8 @@ Rails.application.routes.draw do
     resources :posts do
       collection do
         get 'search'
+        get 'favorite'
+        get 'tag_search'
       end
     end
     post 'favorite/:id' => 'favorites#create', as: 'create_favorite'

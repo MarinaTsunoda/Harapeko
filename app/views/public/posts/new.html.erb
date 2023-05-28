@@ -4,22 +4,20 @@
   <%= f.text_field :price, class:"form-control", placeholder:"価格（税込）" %>
 
   <!--raty.jsにて星を表示-->
-  <div class="form-group row">
-    <%= f.label :star,'評価', class:'col-md-3 col-form-label' %>
-    <div id="star"></div>
-　</div>
-  <script>
-  var elem = document.getElementById('star')
-　　elem.innerHTML = '';
-　　raty(elem,{
-      size     : 36,
-      starOff: '<%= asset_path('star-off.png') %>',
-      starOn : '<%= asset_path('star-on.png') %>',
-      starHalf: '<%= asset_path('star-half.png') %>',
-      scoreName: 'post[star]',
-      half: true,
-    });
-  </script>
+　<div class="form-group" data-score=<%= @post.star %>>
+  <span>Based on <%= @post.reviews.count %> Reviews</span>
+  <h4><%= @post.club.name %></h4>
+  <p><%= @post.description %></p>
+</div>
+ <script>
+  $('.form-group').raty({
+    readOnly: true,
+    path: '/assets/',
+    score: function() {
+      return $(this).attr('data-score')
+    }
+  });
+</script>
   <!--星表示ここまで-->
 
   <!--モーダルウィンドウにてタグ選択画面を表示-->

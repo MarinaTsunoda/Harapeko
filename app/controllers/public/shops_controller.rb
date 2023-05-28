@@ -31,7 +31,7 @@ class Public::ShopsController < ApplicationController
               id: shop["id"],
               name: shop["name"],
               photo: shop["photo"]["pc"]["s"],
-              # url: shop["url"],
+              url: shop["url"],
               address: shop["address"],
               large_area: shop["large_area"]["name"],
               # station_name: shop["station_name"],

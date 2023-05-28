@@ -1,8 +1,6 @@
 <h4>
   <% if params[:favorite_id].present? %>
     お気に入り一覧
-  <% elsif params[:visit_id].present? %>
-    訪問済み一覧
   <% elsif params[:keyword].present? %>
     検索結果
   <% else %>

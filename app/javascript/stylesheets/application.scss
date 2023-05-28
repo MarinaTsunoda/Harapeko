@@ -18,3 +18,48 @@
   font-size: 15px;
   color: #e54747;
 }
+header {
+  height: 200px;
+  width: 100%;
+  background-image: url(../../assets/images/header-background-img.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.logo {
+    width: 30%;
+    margin-top: 5px;
+}
+.navbar {
+  display: flex;
+}
+
+.navbar-toggler {
+  margin-left: auto;
+}
+
+@media screen and (max-width:1024px) {
+  header {
+    height: 180px;
+  }
+  .logo {
+    width: 35%;
+  }
+}
+
+@media screen and (max-width:768px) {
+  header {
+    height: 150px;
+  }
+  .logo {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width:425px) {
+   header {
+    height: 100px;
+  }
+  .logo {
+    width: 45%;
+  }
+}

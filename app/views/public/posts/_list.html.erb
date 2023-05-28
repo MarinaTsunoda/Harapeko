@@ -2,7 +2,7 @@
   <div id="post_<%= post.id %>">
     <%= link_to post_path(post.id) do %>
       <div class = "card">
-        <%= render 'post', post: post %>
+        <%= render 'public/posts/post', post: post %>
       </div>
     <% end %>
   </div>
