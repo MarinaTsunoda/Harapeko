@@ -1,4 +1,5 @@
-<table>
+<h5 class="m-3">登録情報</h5>
+<table class="m-auto">
   <tr>
     <th>名前</th>
     <td><%= current_user.last_name %> <%= current_user.first_name %></td>
@@ -32,12 +33,17 @@
     <td><%= current_user.sex_i18n %></td>
   </tr>
 </table>
-
-<%= link_to "登録情報編集", edit_user_path(current_user.id) %>
-
-<%= form_with model: @user, url: users_withdraw_path, method: :patch do |f| %>
-  <%= f.submit '退会する', data: { confirm: '本当に退会しますか？' }, class:"btn btn-danger px-4 mt-3 ml-3" %>
-<% end %>
-
-投稿一覧
+<table class="m-auto">
+  <tr>
+    <td>
+      <%= link_to "登録情報編集", edit_user_path(current_user.id),class:"btn btn-success px-4 mt-3 mr-4" %>
+    </td>
+    <td>
+      <%= form_with model: @user, url: users_withdraw_path, method: :patch do |f| %>
+        <%= f.submit '退会する', data: { confirm: '本当に退会しますか？' }, class:"btn btn-danger px-4 mt-3 ml-4" %>
+      <% end %>
+    </td>
+  </tr>
+</table>
+<h5 class="m-3 mt-4">投稿一覧</h5>
 <%= render 'public/posts/list', posts: @posts %>

@@ -1,15 +1,23 @@
-<h2>登録情報編集</h2>
+<h4>登録情報編集</h4>
 ※生年月日・性別は変更できません。
 
 <%= render "devise/shared/error_messages", resource: @user %>
 
 <%= form_with model: @user, url: users_information_path, method: :patch do |f| %>
 
-  <table>
+  <table class="tb01">
+     <tr>
+      <th>ニックネーム<span class="font-weight-normal text-danger">　※他のユーザーに表示されます</span></th>
+      <td><%= f.text_field :user_name %></td>
+    </tr>
+    <tr>
+      <th>自己紹介文<span class="font-weight-normal text-danger">　※他のユーザーに表示されます</span></th>
+      <td><%= f.text_area :user_introduction, class:"w-100" %></td>
+    </tr>
     <tr>
       <th>名前</th>
-      <td>　姓<%= f.text_field :last_name %></td>
-      <td>　名<%= f.text_field :first_name %></td>
+      <td>姓<%= f.text_field :last_name %></td>
+      <td>名<%= f.text_field :first_name %></td>
     </tr>
     <tr>
       <th>フリガナ</th>
@@ -22,11 +30,11 @@
     </tr>
     <tr>
       <th>住所</th>
-      <td><%= f.text_field :address %></td>
+      <td><%= f.text_field :address, class:"w-100" %></td>
     </tr>
     <tr>
       <th>メールアドレス</th>
-      <td><%= f.text_field :email %></td>
+      <td><%= f.text_field :email, class:"w-100" %></td>
     </tr>
     <tr>
       <th>電話番号（ハイフンなし）</th>
@@ -41,7 +49,7 @@
       <td><%= f.password_field :password_confirmation %></td>
     </tr>
   </table>
-  <div class="actions">
-    <%= f.submit "変更を保存" %>
+  <div class="text-center">
+    <%= f.submit "変更を保存", class:"btn btn-success px-4 mt-3" %>
   </div>
 <% end %>

@@ -32,15 +32,20 @@ li {
 
 main {
   background-color: #f1f1f1;
-  height: 800px;
   width: 100%;
   margin-top: 150px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
 }
 
 footer {
   background-color: #ffd700;
   height: 30px;
   display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 footer div {
@@ -297,4 +302,31 @@ header {
   background: #fff;
   text-align: left;
   padding: 30px;
+}
+
+/* table01 */
+.tb01 th,
+.tb01 td{
+  padding: 10px;
+  text-align:center;
+  box-sizing:border-box;
+}
+
+@media screen and (max-width: 640px) {
+  .tb01 {
+    width: 100%;
+  }
+  .tb01 td {
+  background-color: #fff;
+  }
+  table.tb01 th,
+  table.tb01 td {
+    display: block;
+    width: 100%;
+    border-bottom:none;
+  }
+  .tb01 tr:first-child{
+    border-top: solid 1px #ccc;
+  }
+
 }
