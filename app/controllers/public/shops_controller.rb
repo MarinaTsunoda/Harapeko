@@ -20,7 +20,6 @@ class Public::ShopsController < ApplicationController
       request = Net::HTTP::Get.new(uri.request_uri)
       response = http.request(request)
 
-
       hash = Hash.from_xml response.body
       @shops = []
 

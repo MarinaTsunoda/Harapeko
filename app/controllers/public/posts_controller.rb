@@ -12,7 +12,7 @@ class Public::PostsController < ApplicationController
       require 'active_support/core_ext'
 
       uri = "http://webservice.recruit.co.jp/hotpepper/gourmet/v1/"
-      api_key = ENV['API_KEY']
+      api_key = ENV["API_KEY"]
 
       url = uri << "?key=" << api_key << "&hit_per_page=100" << "&id=" << URI.encode_www_form_component(id)
 

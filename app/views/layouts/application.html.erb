@@ -10,64 +10,65 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-    <header class="sticky-top">
-      <%= link_to root_path, class:'display-inline-block' do %>
-        <%= image_tag "logo.png", class:"logo" %>
-      <% end %>
-      <div class="display-inline-block float-right">
-        <nav class="navbar navbar-expand-md navbar-dark">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav ml-auto">
-              <% if admin_signed_in? %>
-                <li><%= link_to "投稿一覧", admin_posts_path, class:"btn btn-light px-4" %></li>
-                <li><%= link_to "会員一覧", admin_users_path, class:"btn btn-light px-4" %></li>
-                <li><%= link_to "タグ管理", admin_tags_path, class:"btn btn-light px-4" %></li>
-                <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class:"btn btn-light px-4" %></li>
+    <header>
+      <div class="header__inner">
+        <%= link_to root_path, class:'display-inline-block' do %>
+          <%= image_tag "logo-icon.png", class:"header__title" %>
+        <% end %>
+        <nav class="header__nav nav" id="js-nav">
+          <ul class="nav__items nav-items">
+            <% if admin_signed_in? %>
+                <li class="nav-items__item"><%= link_to "投稿一覧", admin_posts_path, class:"btn btn-light px-4" %></li>
+                <li class="nav-items__item"><%= link_to "会員一覧", admin_users_path, class:"btn btn-light px-4" %></li>
+                <li class="nav-items__item"><%= link_to "タグ管理", admin_tags_path, class:"btn btn-light px-4" %></li>
+                <li class="nav-items__item"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class:"btn btn-light px-4" %></li>
               <% elsif user_signed_in? %>
-                <li>
+                <li class="nav-items__item">
                   <%= link_to posts_path do %>
                     <i class="fas fa-utensils"></i>タイムライン
                   <% end %>
                 </li>
-                <li>
+                <li class="nav-items__item">
                   <%= link_to favorite_posts_path do %>
                     <i class="fas fa-heart"></i>お気に入り
                   <% end %>
                 </li>
-                <li>
+                <li class="nav-items__item">
                   <%= link_to users_my_page_path do %>
                     <i class="fas fa-user-alt"></i>マイページ
                   <% end %>
                 </li>
-                <li>
+                <li class="nav-items__item">
                   <%= link_to destroy_user_session_path, method: :delete do %>
                     <i class="fas fa-sign-out-alt"></i>ログアウト
                   <% end %>
                 </li>
               <% else %>
-                <li>
+                <li class="nav-items__item">
                   <%= link_to users_guest_sign_in_path, method: :post do %>
                     ゲストログイン(閲覧用)
                   <% end %>
                 </li>
-                <li>
+                <li class="nav-items__item">
                   <%= link_to new_user_registration_path do %>
                     新規登録
                   <% end %>
                 </li>
-                <li>
+                <li class="nav-items__item">
                   <%= link_to new_user_session_path do %>
                     ログイン
                   <% end %>
                 </li>
               <% end %>
-            </ul>
-          </div>
+          </ul>
         </nav>
-        <%= form_with url: search_posts_path, local: true, method: :get do |f| %>
+        <button class="header__hamburger hamburger" id="js-hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <%= form_with url: search_posts_path, local: true, method: :get do |f| %>
         <table align="right">
           <tr>
             <td><%= f.text_field :keyword %></td>
@@ -79,13 +80,26 @@
           </tr>
         </table>
       <% end %>
-      </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <script>
+       $(function(){
+          const ham = $('#js-hamburger');
+          const nav = $('#js-nav');
+          ham.on('click', function () { //ハンバーガーメニューをクリックしたら
+            ham.toggleClass('active'); // ハンバーガーメニューにactiveクラスを付け外し
+            nav.toggleClass('active'); // ナビゲーションメニューにactiveクラスを付け外し
+          
+          });
+       });
+      </script>
     </header>
     <main>
       <%= yield %>
     </main>
     <footer>
-      Powered by <a href="http://webservice.recruit.co.jp/">ホットペッパー Webサービス</a>
+      <div>
+        Powered by <a href="http://webservice.recruit.co.jp/">ホットペッパー Webサービス</a>
+      </div>
     </footer>
   </body>
 </html>
