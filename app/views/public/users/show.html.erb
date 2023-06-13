@@ -1,3 +1,10 @@
-<%= @user.user_name %>さんのページ
-<%= @user.user_introduction %>
+<table class="mx-auto">
+    <tr>
+        <th><h4><%= @user.user_name %>さんのページ</h4></th>
+    </tr>
+    <tr>
+        <td><%= @user.user_introduction %></td>
+    </tr>
+</table>
+
 <%= render 'public/posts/list', posts: @posts %>

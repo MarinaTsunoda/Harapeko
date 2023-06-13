@@ -1,11 +1,11 @@
-<h4>登録情報編集</h4>
-※生年月日・性別は変更できません。
+<h4 class="text-center">登録情報編集</h4>
+<p class="text-center">※生年月日・性別は変更できません。</p>
 
 <%= render "devise/shared/error_messages", resource: @user %>
 
 <%= form_with model: @user, url: users_information_path, method: :patch do |f| %>
 
-  <table class="tb01">
+  <table class="tb01 mx-auto">
      <tr>
       <th>ニックネーム<span class="font-weight-normal text-danger">　※他のユーザーに表示されます</span></th>
       <td><%= f.text_field :user_name %></td>

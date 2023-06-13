@@ -1,5 +1,13 @@
-<h5 class="m-3">登録情報</h5>
+<h5 class="text-center mb-3">登録情報</h5>
 <table class="m-auto">
+  <tr>
+    <th>ニックネーム</th>
+    <td><%= current_user.user_name %></td>
+  </tr>
+  <tr>
+    <th>自己紹介</th>
+    <td><%= current_user.user_introduction %></td>
+  </tr>
   <tr>
     <th>名前</th>
     <td><%= current_user.last_name %> <%= current_user.first_name %></td>
@@ -45,5 +53,5 @@
     </td>
   </tr>
 </table>
-<h5 class="m-3 mt-4">投稿一覧</h5>
+<h5 class="text-center mb-3 mt-4">投稿一覧</h5>
 <%= render 'public/posts/list', posts: @posts %>
