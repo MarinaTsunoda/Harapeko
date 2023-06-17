@@ -1,19 +1,18 @@
-<% @users.each do |user| %>
-  <table>
+<h5 class="text-center mb-3">ユーザ一覧</h5>
+  <table cellpadding="5" class="mx-auto">
     <tr>
       <th>氏名</th>
       <th>メールアドレス</th>
-      <th>生年月日</th>
       <th>ステータス</th>
     </tr>
     <tr>
+      <% @users.each do |user| %>
       <td>
         <%= link_to admin_user_path(user.id) do %>
           <%= user.last_name %> <%= user.first_name %>
         <% end %>
       </td>
       <td><%= user.email %></td>
-      <td><%= user.birth_date %></td>
       <td>
         <% if user.is_deleted %>
           <span class="text-secondary font-weight-bold">退会</span>
@@ -21,6 +20,6 @@
           <span class="text-success font-weight-bold">有効</span>
         <% end %>
       </td>
+      <% end %>
     </tr>
   </table>
-<% end %>

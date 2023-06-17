@@ -1,4 +1,13 @@
-<table>
+<h4 class="text-center">ユーザ情報詳細</h4>
+<table class="tb01 mx-auto">
+  <tr>
+    <th>ニックネーム</th>
+    <td><%= @user.user_name %></td>
+  </tr>
+  <tr>
+    <th>自己紹介</th>
+    <td><%= @user.user_introduction %></td>
+  </tr>
   <tr>
     <th>名前</th>
     <td><%= @user.last_name %> <%= @user.first_name %></td>
@@ -42,5 +51,9 @@
     </td>
   </tr>
 </table>
-<%= link_to '編集する', edit_admin_user_path(@user.id), class:"btn btn-success px-4 mt-3 ml-5" %>
-<%= link_to '投稿一覧', admin_posts_path(user_id: @user.id), class:"btn btn-success px-4 mt-3 ml-5" %>
+<table class="mx-auto">
+  <tr>
+    <td><%= link_to '編集する', edit_admin_user_path(@user.id), class:"btn btn-success px-4 mt-3 ml-5" %></td>
+    <td><%= link_to '投稿一覧', admin_posts_path(user_id: @user.id), class:"btn btn-primary px-4 mt-3 ml-5" %></td>
+  </tr>
+</table>

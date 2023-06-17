@@ -2,7 +2,7 @@ class Public::PostsController < ApplicationController
   def new
     @post = Post.new
     @tag_genres = TagGenre.all
-
+   
   #   begin
   #     id = params[:select_shop]
 

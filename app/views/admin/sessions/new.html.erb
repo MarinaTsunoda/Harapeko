@@ -1,21 +1,19 @@
-<h2>ログイン</h2>
+<h2 class="text-center mb-3">ログイン</h2>
 
-<%= render "public/shared/error_messages", resource: resource %>
+<%= render "admin/shared/error_messages", resource: resource %>
 
 <%= form_with model: @admin, url: admin_session_path do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "ログイン" %>
+  <table class="tb01 mx-auto">
+    <tr>
+      <th>メールアドレス</th>
+      <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
+    </tr>
+    <tr>
+      <th>パスワード</th>
+      <td><%= f.password_field :password, autocomplete: "current-password" %></td>
+    </tr>
+  </table>
+  <div class="actions text-center mt-3">
+    <%= f.submit "ログイン", class:"btn btn-primary" %>
   </div>
 <% end %>
-
-<%= render "admin/shared/links" %>
