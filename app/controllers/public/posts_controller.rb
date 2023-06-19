@@ -3,34 +3,35 @@ class Public::PostsController < ApplicationController
     @post = Post.new
     @tag_genres = TagGenre.all
    
-  #   begin
-  #     id = params[:select_shop]
+    begin
+      id = params[:select_shop]
 
-  #     require 'open-uri'
-  #     require 'json'
-  #     require 'active_support'
-  #     require 'active_support/core_ext'
+      require 'open-uri'
+      require 'json'
+      require 'active_support'
+      require 'active_support/core_ext'
 
-  #     uri = "http://webservice.recruit.co.jp/hotpepper/gourmet/v1/"
-  #     api_key = ENV["API_KEY"]
+      uri = "http://webservice.recruit.co.jp/hotpepper/gourmet/v1/"
+      api_key = ENV["API_KEY"]
 
-  #     url = uri << "?key=" << api_key << "&hit_per_page=100" << "&id=" << URI.encode_www_form_component(id)
+      url = uri << "?key=" << api_key << "&hit_per_page=100" << "&id=" << URI.encode_www_form_component(id)
 
-  #     uri = URI.parse(url)
-  #     http = Net::HTTP.new(uri.host, uri.port)
-  #     request = Net::HTTP::Get.new(uri.request_uri)
-  #     response = http.request(request)
+      uri = URI.parse(url)
+      https = Net::HTTP.new(uri.host, 443)
+      https.use_ssl = true
+      request = Net::HTTP::Get.new(uri.request_uri)
+      response = https.request(request)
 
-  #     hash = Hash.from_xml response.body
+      hash = Hash.from_xml response.body
 
-  #     if hash.has_key?("results")
-  #       if hash["results"]["results_available"].to_i > 0
-  #         @shop = hash.dig("results","shop")
-  #       end
-  #     else
-  #       @error = "エラーが発生しました"
-  #     end
-  #   end
+      if hash.has_key?("results")
+        if hash["results"]["results_available"].to_i > 0
+          @shop = hash.dig("results","shop")
+        end
+      else
+        @error = "エラーが発生しました"
+      end
+    end
   end
 
   def create

@@ -17,25 +17,27 @@
     <th>評価</th>
     <td>
 <!--raty.jsにて星を表示-->
-    <div class="form-group row">
-      <div id="star"></div>
-　  </div>
-   </td>
-  </tr>
-<script>
-var elem = document.getElementById('star')
-　　elem.innerHTML = '';
-　　raty(elem,{
-    size     : 36,
-    starOff: '<%= asset_path('star-off.png') %>',
-    starOn : '<%= asset_path('star-on.png') %>',
-    starHalf: '<%= asset_path('star-half.png') %>',
-    scoreName: 'post[star]',
-    half: true,
-  });
-</script>
+    <div class="form-group" id="star">
+      <%= f.hidden_field :star, id: :review_star, class: 'form-control' %>
+      <div id="post_raty"></div>
+    </div>
+    <script>
+      $(document).on('turbolinks:load', function() {
+        let elem = document.querySelector('#post_raty');
+        if (elem == null) return;
+        
+        elem.innerHTML = ""
+        let opt = {  
+          starOn: "<%= asset_path('star-on.png') %>",
+          starOff: "<%= asset_path('star-off.png') %>",
+          starHalf: "<%= asset_path('star-half.png') %>",
+          scoreName: 'post[star]',
+        };
+        raty(elem, opt);
+      });
+    </script>
 <!--星表示ここまで-->
-
+    </td>
   <!--モーダルウィンドウにてタグ選択画面を表示-->
   <tr>
     <th>タグを選択</th>
