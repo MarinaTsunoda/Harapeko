@@ -63,15 +63,19 @@
     <th>店舗を検索</th>
     <td>
       <%= link_to '店舗を検索', shops_search_path, class:"btn btn-primary" %>
-      <% if params[:select_shop].present? %>
-        <%= image_tag @shop.dig('photo', 'pc', 's') %> 店名：<%= @shop["name"] %> : 住所：<%= @shop["address"] %>
-        <%= f.hidden_field :shop_id, value: @shop["id"] %>
-        <%= f.hidden_field :shop_large_area, value: @shop["large_area"]["name"] %>
-        <%= f.hidden_field :shop_midnight_meal, value: @shop['midnight_meal'] %>
-      <% end %>
     </td>
   </tr>
 </table>
+<div class="text-center">
+  <% if params[:select_shop].present? %>
+    <%= image_tag @shop.dig('photo', 'pc', 's') %><br>
+    店名：<%= @shop["name"] %><br>
+    住所：<%= @shop["address"] %>
+    <%= f.hidden_field :shop_id, value: @shop["id"] %>
+    <%= f.hidden_field :shop_large_area, value: @shop["large_area"]["name"] %>
+    <%= f.hidden_field :shop_midnight_meal, value: @shop['midnight_meal'] %>
+  <% end %>
+</div>
   <%= f.hidden_field :user_id, :value => current_user.id %>
   <div class="text-center">
     <%= f.submit '投稿', class:"btn btn-lg btn-info mt-4 px-5" %>

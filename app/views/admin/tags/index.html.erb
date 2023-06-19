@@ -1,36 +1,89 @@
-<h4 class="text-center">ジャンルの新規作成</h4>
+<h5 class="text-center">ジャンルの新規作成</h5>
 <%= form_with model: @tag_genre, url: admin_tag_genres_path, method: :post do |f| %>
-  <%= f.text_field :name %>
-  <%= f.submit '新規作成' %>
+  <table class="tb01 mx-auto">
+    <tr>
+      <th>ジャンル名</th>
+      <td><%= f.text_field :name %></td>
+      <td><%= f.submit '新規作成' %></td>
+    </tr>
+  </table>
 <% end %>
 
-<h4 class="text-center">タグの新規作成</h4>
+<h5 class="text-center mt-3">タグの新規作成</h5>
 <%= form_with model: @tag, url: admin_tags_path, method: :post do |f| %>
-  <%= f.text_field :name %>
-  <%= f.collection_select :tag_genre_id, @tag_genres, :id, :name, include_blank: '--選択してください--' %>
-  <%= f.submit '新規作成' %>
+  <table class="tb01 mx-auto">
+    <tr>
+      <th>タグ名</th>
+      <td><%= f.text_field :name %></td>
+      <td><%= f.collection_select :tag_genre_id, @tag_genres, :id, :name, include_blank: '--ジャンルを選択してください--' %></td>
+      <td><%= f.submit '新規作成' %></td>
+    </tr>
+  </table>
 <% end %>
 
 
 <% @tag_genres.each do |tag_genre| %><br>
-  <%= tag_genre.name %>
-  <div class="modal-open modal-open-tag-genre<%= tag_genre.id %> btn btn-success">編集</div><br>
-  <div class="modal-container modal-container-tag-genre<%= tag_genre.id %>">
-    <div class="modal-body">
-      <div class="modal-close modal-close-tag-genre<%= tag_genre.id %>">×</div>
-      <div class="modal-content">
-        ジャンル名:<%= tag_genre.name %>
-         <%= form_with model: @tag_genre, url: admin_tag_genre_path(tag_genre.id), method: :patch do |f| %>
-            <%= f.text_field :name, placeholder: "ジャンル名" %>
-            <%= f.submit '保存' %>
-        　<% end %>
-          <%= form_with model: @tag_genre, url: admin_tag_genre_path(tag_genre.id), method: :delete do |f| %>
-            <%= f.submit '削除', data: { confirm: 'タグジャンルを削除すると紐づいたタグも全て削除されます。本当に削除しますか？' } %>
+<table class="tb01 mx-auto">
+  <tr>
+    <th>
+      <%= tag_genre.name %>
+      <div class="modal-open modal-open-tag-genre<%= tag_genre.id %> btn btn-success">編集</div><br>
+      <div class="modal-container modal-container-tag-genre<%= tag_genre.id %>">
+        <div class="modal-body">
+          <div class="modal-close modal-close-tag-genre<%= tag_genre.id %>">×</div>
+          <div class="modal-content">
+            <%= form_with model: @tag_genre, url: admin_tag_genre_path(tag_genre.id), method: :patch do |f| %>
+            <table class="tb01 mx-auto">
+              <tr>
+                <th>ジャンル名</th>
+                <td><%= f.text_field :name, placeholder: tag_genre.name %></td>
+              </tr>
+            </table>
+            <table width="100%">
+              <tr>
+                <td width="50%"><%= f.submit '保存', class:"btn btn-success" %></td>
           <% end %>
+                <td width="50%">
+                  <div class="text-right">
+                    <%= form_with model: @tag_genre, url: admin_tag_genre_path(tag_genre.id), method: :delete do |f| %>
+                      <%= f.submit '削除', class:"btn btn-danger", data: { confirm: 'タグジャンルを削除すると紐づいたタグも全て削除されます。本当に削除しますか？' } %>
+                    <% end %>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  
+    </th>
+  <script>
+    $(function(){
+    // 変数に要素を入れる
+      var open = $('.modal-open-tag-genre<%= tag_genre.id %>'),
+        close = $('.modal-close-tag-genre<%= tag_genre.id %>'),
+        container = $('.modal-container-tag-genre<%= tag_genre.id %>');
+    
+      //開くボタンをクリックしたらモーダルを表示する
+      open.on('click',function(){
+        container.addClass('active');
+        return false;
+      });
+    
+      //閉じるボタンをクリックしたらモーダルを閉じる
+      close.on('click',function(){
+        container.removeClass('active');
+      });
+    
+      //モーダルの外側をクリックしたらモーダルを閉じる
+      $(document).on('click',function(e) {
+        if(!$(e.target).closest('.modal-body').length) {
+          container.removeClass('active');
+        }
+      });
+    });
+  </script>
+  </tr>
+</table>
   <% tag_genre.tags.each do |tag| %>
     <div class="modal-open modal-open-tag<%= tag.id %> btn btn-warning"><%= tag.name %></div>
     <div class="modal-container modal-container-tag<%= tag.id %>">
@@ -62,60 +115,34 @@
                 </td>
               </tr>
             </table>
+          </div>
         </div>
       </div>
-    </div>
-    <script>
-      $(function(){
-      // 変数に要素を入れる
-        var open = $('.modal-open-tag-genre<%= tag_genre.id %>'),
-          close = $('.modal-close-tag-genre<%= tag_genre.id %>'),
-          container = $('.modal-container-tag-genre<%= tag_genre.id %>');
-      
-        //開くボタンをクリックしたらモーダルを表示する
-        open.on('click',function(){
-          container.addClass('active');
-          return false;
-        });
-      
-        //閉じるボタンをクリックしたらモーダルを閉じる
-        close.on('click',function(){
-          container.removeClass('active');
-        });
-      
-        //モーダルの外側をクリックしたらモーダルを閉じる
-        $(document).on('click',function(e) {
-          if(!$(e.target).closest('.modal-body').length) {
+      <script>
+        $(function(){
+        // 変数に要素を入れる
+          var open = $('.modal-open-tag<%= tag.id %>'),
+            close = $('.modal-close-tag<%= tag.id %>'),
+            container = $('.modal-container-tag<%= tag.id %>');
+        
+          //開くボタンをクリックしたらモーダルを表示する
+          open.on('click',function(){
+            container.addClass('active');
+            return false;
+          });
+        
+          //閉じるボタンをクリックしたらモーダルを閉じる
+          close.on('click',function(){
             container.removeClass('active');
-          }
+          });
+        
+          //モーダルの外側をクリックしたらモーダルを閉じる
+          $(document).on('click',function(e) {
+            if(!$(e.target).closest('.modal-body').length) {
+              container.removeClass('active');
+            }
+          });
         });
-      });
-    </script>
-    <script>
-      $(function(){
-      // 変数に要素を入れる
-        var open = $('.modal-open-tag<%= tag.id %>'),
-          close = $('.modal-close-tag<%= tag.id %>'),
-          container = $('.modal-container-tag<%= tag.id %>');
-      
-        //開くボタンをクリックしたらモーダルを表示する
-        open.on('click',function(){
-          container.addClass('active');
-          return false;
-        });
-      
-        //閉じるボタンをクリックしたらモーダルを閉じる
-        close.on('click',function(){
-          container.removeClass('active');
-        });
-      
-        //モーダルの外側をクリックしたらモーダルを閉じる
-        $(document).on('click',function(e) {
-          if(!$(e.target).closest('.modal-body').length) {
-            container.removeClass('active');
-          }
-        });
-      });
-    </script>
-  <% end %>
+      </script>
+    <% end %>
 <% end %>
