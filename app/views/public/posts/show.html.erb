@@ -1,40 +1,84 @@
 
+<h4 class="text-center mb-3">投稿詳細</h4>
+<table class="tb01 mx-auto">
+  <tr>
+    <td width="50%">
+      <%= link_to user_path(@post.user.id) do %>
+        <%= @post.user.first_name %><%= @post.user.last_name %>
+      <% end %>
+    </td>
+    <td><%= @post.name %></td>
+  </tr>
+  <tr>
+    <td rowspan="4">
+      <%= image_tag @post.image, width:"75%" %>
+    </td>
+    <td><div id="star_<%= @post.id %>"</td>
+  </tr>
+  <tr>
+    <td><%= @post.price %>円</td>
+  </tr>
+  <tr>
+    <td>
+      <% @post.tags.each do |tag| %>
+        <div class="tag-btn">
+          <%= tag.name %>
+        </div>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+        <%= link_to @shop["urls"]["pc"] do %>
+          <div class="border p-3">
+            <%= image_tag @shop.dig('photo', 'pc', 's') %><br>店名：<%= @shop["name"] %><br>住所：<%= @shop["address"] %>
+          </div>
+        <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <% if current_user.favorited_by?(@post.id) %>
+        <%= link_to destroy_favorite_path(@post), class: "favorite-link", method: :DELETE, remote: true do %>
+          <i class="fa fa-heart unfavorite-btn"></i>
+          <% end %>
+        <%= @post.favorites.count %>
+      <% else %>
+        <%= link_to create_favorite_path(@post), class: "favorite-link", method: :POST, remote: true do %>
+          <i class="fa fa-heart favorite-btn"></i>
+          <% end %>
+        <%= @post.favorites.count %>
+      <% end %>
+    </td>
+    <td>
+      <table class="mx-auto">
+        <tr>
+          <% if @post.user == current_user %>
+          <td><%= link_to "編集", edit_post_path, class:"btn btn-success px-4 mt-3" %></td>
+          <td>
+            <%= form_with model: @post, url: post_path(@post.id), method: :delete do |f| %>
+              <%= f.submit '削除', data: { confirm: '本当に削除しますか？' }, class:"btn btn-danger px-4 mt-3" %>
+            <% end %>
+          </td>
+          <% end %>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<script>
+$(document).on('turbolinks:load', function() {
+  let elem = document.querySelector('#star_<%= @post.id %>');
+  if (elem == null) return;
 
-<%= image_tag @post.image %>
-<%= @post.name %>
-<%= @post.price %>
-<div id="star-rate<%= @post.id %>">
-  <script>
-    $('#star-rate<%= @post.id %>').empty();
-    $('#star-rate<%= @post.id %>').raty({
-      size      : 36,
-      starOff   : '<%= asset_path('star-off.png') %>',
-      starOn    : '<%= asset_path('star-on.png') %>',
-      half      : true,
-      readOnly: true,
-      score: <%= @post.star %>,
-    });
-  </script>
-</div>
-<%= @post.tags.each do |tag| %>
-  <%= tag.name %>
-<% end %>
-<%= link_to @shop["url"] do %>
-  <%= image_tag @shop.dig('photo', 'pc', 's') %> 店名：<%= @shop["name"] %> : 住所：<%= @shop["address"] %>
-<% end %>
-<% if current_user.favorited_by?(@post.id) %>
-  <%= link_to destroy_favorite_path(@post), class: "favorite-link", method: :DELETE, remote: true do %>
-    <i class="fa fa-heart unfavorite-btn"></i>
-    <% end %>
-  <%= @post.favorites.count %>
-<% else %>
-  <%= link_to create_favorite_path(@post), class: "favorite-link", method: :POST, remote: true do %>
-    <i class="fa fa-heart favorite-btn"></i>
-    <% end %>
-  <%= @post.favorites.count %>
-<% end %>
-
-<%= link_to "編集", edit_post_path %>
-<%= form_with model: @post, url: post_path(@post.id), method: :delete do |f| %>
-  <%= f.submit '削除', data: { confirm: '本当に削除しますか？' }, class:"btn btn-danger px-4 mt-3 ml-3" %>
-<% end %>
+  elem.innerHTML = "";
+  let opt = {
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
+    score: "<%= @post.star %>",
+    readOnly: true,
+  };
+  raty(elem, opt);
+});
+</script>

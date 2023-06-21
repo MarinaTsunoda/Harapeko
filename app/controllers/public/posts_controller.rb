@@ -2,7 +2,7 @@ class Public::PostsController < ApplicationController
   def new
     @post = Post.new
     @tag_genres = TagGenre.all
-   
+
     begin
       id = params[:select_shop]
 
@@ -64,9 +64,10 @@ class Public::PostsController < ApplicationController
       url = uri << "?key=" << api_key << "&hit_per_page=100" << "&id=" << URI.encode_www_form_component(id)
 
       uri = URI.parse(url)
-      http = Net::HTTP.new(uri.host, uri.port)
+      https = Net::HTTP.new(uri.host, 443)
+      https.use_ssl = true
       request = Net::HTTP::Get.new(uri.request_uri)
-      response = http.request(request)
+      response = https.request(request)
 
       hash = Hash.from_xml response.body
 
@@ -81,6 +82,7 @@ class Public::PostsController < ApplicationController
   end
 
   def index
+    @tag_genres = TagGenre.all
     if params[:favorite_id].present?
       @posts = current_user.posts.where(favorite_id: params[:favorite_id])
     elsif params[:visit_id].present?
@@ -110,9 +112,10 @@ class Public::PostsController < ApplicationController
       url = uri << "?key=" << api_key << "&hit_per_page=100" << "&id=" << URI.encode_www_form_component(id)
 
       uri = URI.parse(url)
-      http = Net::HTTP.new(uri.host, uri.port)
+      https = Net::HTTP.new(uri.host, 443)
+      https.use_ssl = true
       request = Net::HTTP::Get.new(uri.request_uri)
-      response = http.request(request)
+      response = https.request(request)
 
       hash = Hash.from_xml response.body
 
@@ -134,9 +137,21 @@ class Public::PostsController < ApplicationController
   end
 
   def search
+    params[:area_names].delete("") if params[:area_names].present?
+    params[:tag_ids].delete("") if params[:tag_ids].present?
     if params[:keyword].present?
       @posts = Post.where('caption LIKE ?', "%#{params[:keyword]}%")
       @keyword = params[:keyword]
+    elsif params[:area_names].present? && params[:tag_ids].present?
+      @posts = Post
+      params[:area_names].each_with_index do |area, index|
+        if index == 0
+          @posts = @posts.joins(:post_tag_relations).where('shop_large_area LIKE ?', "%#{area}%")
+        else
+          @posts = @posts.or(Post.joins(:post_tag_relations).where('shop_large_area LIKE ?', "%#{area}%"))
+        end
+      end
+      @posts = @posts.or(Post.joins(:post_tag_relations).where(post_tag_relations: {tag_id: params[:tag_ids]})).distinct
     elsif params[:area_names].present?
       @posts = Post
       params[:area_names].each_with_index do |area, index|
@@ -150,9 +165,9 @@ class Public::PostsController < ApplicationController
       @posts = Post
       params[:tag_ids].each_with_index do |tag, index|
         if index == 0
-          @posts = @posts.where(tag_id: tag.id)
+          @posts = Tag.find(tag).posts
         else
-          @posts = @posts.or(Post.where(tag_id: tag.id))
+          @posts = @posts.or(Tag.find(tag).posts)
         end
       end
     else

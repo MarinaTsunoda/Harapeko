@@ -26,6 +26,12 @@
               <%= post.shop_large_area %>
             </label>
           <% end %>
+          <% @tag_genres.each do |tag_genre| %>
+            <%= tag_genre.name %>
+            <%= f.collection_check_boxes(:tag_ids, Tag.where(tag_genre_id: tag_genre.id), :id, :name) do |tag| %>
+              <%= tag.check_box%><%= tag.text %>
+            <% end %>
+          <% end %>
 
           <%= f.submit "検索" %>
         <% end %>
