@@ -1,13 +1,13 @@
+<h5 class="text-center mb-3">いいね数ランキング</h5>
 <div class="container">
     <div class="row">
-      <h5 class="text-center mb-3">いいね数ランキング</h5>
       <div class="card-group">
         <% @post_favorite_ranks.each.with_index(1) do |post, i| %>
-          第<%= i %>位
           <div class="col-6 col-md-4 col-lg-3">
             <div id="post_<%= post.id %>">
+              第<%= i %>位
               <%= link_to post_path(post.id) do %>
-            
+
                 <div class="card">
                   <div class="card-image">
                     <% if post.image.attached? %>
@@ -24,7 +24,7 @@
                     $(document).on('turbolinks:load', function() {
                       let elem = document.querySelector('#star_<%= post.id %>');
                       if (elem == null) return;
-            
+
                       elem.innerHTML = "";
                       let opt = {
                         starOn: "<%= asset_path('star-on.png') %>",
@@ -47,10 +47,13 @@
         <% end %>
       </div>
     </div>
-        <h5 class="text-center mb-3">タグ週間ランキング</h5>
+        <h5 class="text-center my-3">タグ週間ランキング<span class="h6 text-danger">※毎週月曜日更新</span></h5>
         <% @tag_ranks.each.with_index(1) do |tag, i| %>
-          第<%= i %>位
-          <%= tag.name %>
+          <span class="bg-warning ml-3">第<%= i %>位</span>
+          <div class="tag-btn">
+            <%= tag.name %>
+          </div>
+          (<%= tag.tag_genre.name %>)
         <% end %>
-    
+
 </div>

@@ -1,30 +1,4 @@
-    <div class="card-image">
-      <% if post.image.attached? %>
-        <%= image_tag post.image, class:"post-image img-fluid" %>
-      <% else %>
-        <%= image_tag 'no_image', class:"post-image img-fluid" %>
-      <% end %>
-    </div>
-    <div class="card-body">
-    <p class="post_title"><%= post.name %></p>
-    <!--raty.jsで星表示ここから-->
-    <div id="star_<%= post.id %>"></div>
-    <script>
-    $(document).on('turbolinks:load', function() {
-      let elem = document.querySelector('#star_<%= post.id %>');
-      if (elem == null) return;
-
-      elem.innerHTML = "";
-      let opt = {
-        starOn: "<%= asset_path('star-on.png') %>",
-        starOff: "<%= asset_path('star-off.png') %>",
-        starHalf: "<%= asset_path('star-half.png') %>",
-        score: "<%= post.star %>",
-        readOnly: true,
-      };
-      raty(elem, opt);
-    });
-    </script>
+    
     <!--raty.jsで星表示ここまで-->
     <% if current_user.favorited_by?(post.id) %>
       <%= link_to destroy_favorite_path(post), class: "favorite-link", method: :DELETE, remote: true do %>
@@ -37,4 +11,4 @@
         <% end %>
       <%= post.favorites.count %>
     <% end %>
-    </div>
+    

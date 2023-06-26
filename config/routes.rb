@@ -7,17 +7,17 @@ Rails.application.routes.draw do
     resources :tags, only: [:index, :create, :destroy, :update]
     resources :tag_genres, only: [:create, :destroy, :update]
   end
-  get 'admin' => 'admin/homes#top', as:'top'
 
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     sessions: "admin/sessions"
   }
+  get 'admin' => 'admin/homes#top', as:'top'
   devise_for :users,skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
   devise_scope :user do
-    post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
+    post 'users/guest_sign_in', to: 'public/sessions#guest_sign_in'
   end
 
   scope module: :public do

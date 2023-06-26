@@ -321,11 +321,12 @@ header {
   }
 }
 .tag-btn{
-  padding: 5px;
-  margin: 10px;
-  border-radius: 10px;
-  background-color: #4169e1;
-  color: #ffffff;
+  color: #333; /* 文字色を黒に */
+  font-size: 14px; /* 文字サイズを14pxに */
+  border-radius: 20px; /* 角丸を入れて、左右が丸いボタンにする */
+  padding: 5px; /* 上下左右に余白をトル */
+  background: #FBB; /* 背景色を薄い赤に */
+  border: 1px solid #FBB; /* 淵の線を薄い赤に */
   display: inline-block;
 }
 
@@ -367,4 +368,8 @@ header {
     color: #FFF; /* 文字色を白に */
     background: #FBB; /* 背景色を薄い赤に */
     border: 1px solid #FBB; /* 淵の線を薄い赤に */
+}
+
+input:invalid {
+  border: solid 1px red;
 }

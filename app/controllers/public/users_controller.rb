@@ -6,9 +6,13 @@ class Public::UsersController < ApplicationController
 
   def update
     @user = current_user
-    @user.update(user_params)
-     flash[:notice] = "お客様情報の更新が完了しました"
-    redirect_to users_my_page_path
+    if @user.update(user_params)
+      flash[:notice] = "お客様情報の更新が完了しました"
+      redirect_to users_my_page_path
+    else
+      flash[:notice] = "必要情報を入力してください"
+      render :edit
+    end
   end
 
   def my_page

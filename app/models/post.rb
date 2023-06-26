@@ -6,5 +6,10 @@ class Post < ApplicationRecord
   has_many :shops, dependent: :destroy
   belongs_to :user
   has_one_attached :image
+  
+  validates :shop_id, presence: true
+  validates :name, presence: true
+  validates :star, presence: true
+  validates :price, presence: true
 
 end

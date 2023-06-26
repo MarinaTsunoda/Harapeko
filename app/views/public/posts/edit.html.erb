@@ -7,11 +7,11 @@
   </tr>
   <tr>
     <th>商品名</th>
-    <td><%= f.text_field :name, placeholder:"商品名" %></td>
+    <td><%= f.text_field :name, placeholder:"商品名", required: true %></td>
   </tr>
   <tr>
     <th>価格</th>
-    <td><%= f.text_field :price, placeholder:"価格（税込）" %></td>
+    <td><%= f.text_field :price, placeholder:"価格（税込）", required: true %></td>
   </tr>
   <tr>
     <th>評価</th>
@@ -19,7 +19,7 @@
 <!--raty.jsにて星を表示-->
     <div class="form-group" id="star">
       <%= f.label :star %>
-      <%= f.hidden_field :star, id: :review_star, class: 'form-control' %>
+      <%= f.hidden_field :star, id: :review_star, class: 'form-control', required: true %>
       <div id="post_raty"></div>
     </div>
     <script>
@@ -88,7 +88,9 @@ var elem = document.getElementById('star')
     </td>
   </tr>
 </table>
-  <%= f.submit '変更して投稿', class:"btn btn-lg btn-info mt-4 px-5" %>
+  <div class="text-center">
+    <%= f.submit '変更して投稿', class:"btn btn-lg btn-info mt-4 px-5" %>
+  </div>
 <% end %>
 <script>
   $(function(){

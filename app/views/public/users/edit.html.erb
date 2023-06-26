@@ -8,45 +8,45 @@
   <table class="tb01 mx-auto">
      <tr>
       <th>ニックネーム<span class="font-weight-normal text-danger">　※他のユーザーに表示されます</span></th>
-      <td><%= f.text_field :user_name %></td>
+      <td><%= f.text_field :user_name, required: true %></td>
     </tr>
     <tr>
       <th>自己紹介文<span class="font-weight-normal text-danger">　※他のユーザーに表示されます</span></th>
-      <td><%= f.text_area :user_introduction, class:"w-100" %></td>
+      <td><%= f.text_area :user_introduction, class:"w-100", required: true %></td>
     </tr>
     <tr>
       <th>名前</th>
-      <td>姓<%= f.text_field :last_name %></td>
-      <td>名<%= f.text_field :first_name %></td>
+      <td>姓<%= f.text_field :last_name, required: true %></td>
+      <td>名<%= f.text_field :first_name, required: true %></td>
     </tr>
     <tr>
       <th>フリガナ</th>
-      <td>セイ<%= f.text_field :last_name_kana %></td>
-      <td>メイ<%= f.text_field :first_name_kana %></td>
+      <td>セイ<%= f.text_field :last_name_kana, required: true %></td>
+      <td>メイ<%= f.text_field :first_name_kana, required: true %></td>
     </tr>
     <tr>
       <th>郵便番号（ハイフンなし）</th>
-      <td><%= f.text_field :postal_code %></td>
+      <td><%= f.text_field :postal_code, required: true %></td>
     </tr>
     <tr>
       <th>住所</th>
-      <td><%= f.text_field :address, class:"w-100" %></td>
+      <td><%= f.text_field :address, class:"w-100", required: true %></td>
     </tr>
     <tr>
       <th>メールアドレス</th>
-      <td><%= f.text_field :email, class:"w-100" %></td>
+      <td><%= f.text_field :email, class:"w-100", required: true %></td>
     </tr>
     <tr>
       <th>電話番号（ハイフンなし）</th>
-      <td><%= f.text_field :telephone_number %></td>
+      <td><%= f.text_field :telephone_number, required: true %></td>
     </tr>
     <tr>
       <th>パスワード（６文字以上）</th>
-      <td><%= f.password_field :password %></td>
+      <td><%= f.password_field :password, required: true %></td>
     </tr>
     <tr>
       <th>パスワード（確認用）</th>
-      <td><%= f.password_field :password_confirmation %></td>
+      <td><%= f.password_field :password_confirmation, required: true %></td>
     </tr>
   </table>
   <div class="text-center">
