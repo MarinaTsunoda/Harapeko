@@ -3,9 +3,9 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     case resource
-    when Admin
+    when :admin
       top_path
-    when User
+    when :user
       posts_path
     end
   end

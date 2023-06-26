@@ -1,4 +1,6 @@
 class Public::PostsController < ApplicationController
+  before_action :authenticate_user!
+  
   def new
     @post = Post.new
     @tag_genres = TagGenre.all
@@ -179,10 +181,6 @@ class Public::PostsController < ApplicationController
     @user = current_user
     favorites = Favorite.where(user_id: @user.id).pluck(:post_id)
     @posts = Post.find(favorites)
-  end
-
-  def tag_search
-    @tag_genres = TagGenre.all
   end
 
   private

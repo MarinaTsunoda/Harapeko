@@ -48,10 +48,12 @@
           <div class="modal-close">×</div>
           <div class="modal-content">
             <% @tag_genres.each do |tag_genre| %>
-              <%= tag_genre.name %>
+              <%= tag_genre.name %><br>
               <%= f.collection_check_boxes(:tag_ids, Tag.where(tag_genre_id: tag_genre.id), :id, :name) do |tag| %>
-                <%= tag.check_box%><%= tag.text %>
-              <% end %>
+                <%= tag.label class: "label-checkbox" do %>
+                 <%= tag.check_box %><span><%= tag.text %></span>
+                <% end %>
+              <% end %><br>
             <% end %>
           </div>
         </div>

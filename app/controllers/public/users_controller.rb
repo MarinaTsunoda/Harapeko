@@ -1,4 +1,5 @@
 class Public::UsersController < ApplicationController
+  before_action :authenticate_user!
   def edit
     @user = current_user
   end
@@ -12,9 +13,6 @@ class Public::UsersController < ApplicationController
 
   def my_page
     @posts = current_user.posts.all
-  end
-
-  def unsubscribe
   end
 
   def withdraw

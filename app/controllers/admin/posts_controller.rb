@@ -1,4 +1,6 @@
 class Admin::PostsController < ApplicationController
+  before_action :authenticate_admin!
+  
   def index
      if params[:user_id].present?
       @user = User.find(params[:user_id])
@@ -47,4 +49,5 @@ class Admin::PostsController < ApplicationController
     flash[:notice] = "投稿を削除しました"
     redirect_to admin_posts_path
   end
+  
 end

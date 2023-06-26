@@ -1,5 +1,5 @@
 class Public::ShopsController < ApplicationController
-
+  before_action :authenticate_user!
   def search
     begin
       keyword = params[:keyword]

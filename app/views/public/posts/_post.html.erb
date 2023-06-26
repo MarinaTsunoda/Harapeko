@@ -1,17 +1,21 @@
-
-<%= link_to post_path(post.id) do %>
-  <div class = "card">
-    <%= image_tag post.image %>
-    <%= post.name %>
+    <div class="card-image">
+      <% if post.image.attached? %>
+        <%= image_tag post.image, class:"post-image img-fluid" %>
+      <% else %>
+        <%= image_tag 'no_image', class:"post-image img-fluid" %>
+      <% end %>
+    </div>
+    <div class="card-body">
+    <p class="post_title"><%= post.name %></p>
     <!--raty.jsで星表示ここから-->
     <div id="star_<%= post.id %>"></div>
     <script>
     $(document).on('turbolinks:load', function() {
       let elem = document.querySelector('#star_<%= post.id %>');
       if (elem == null) return;
-      
+
       elem.innerHTML = "";
-      let opt = {  
+      let opt = {
         starOn: "<%= asset_path('star-on.png') %>",
         starOff: "<%= asset_path('star-off.png') %>",
         starHalf: "<%= asset_path('star-half.png') %>",
@@ -33,5 +37,4 @@
         <% end %>
       <%= post.favorites.count %>
     <% end %>
-  </div>
-<% end %>
+    </div>

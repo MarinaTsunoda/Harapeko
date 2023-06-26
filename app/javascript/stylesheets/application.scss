@@ -230,6 +230,11 @@ header {
   color: #191970;
   font-size: 50px;
 }
+.filter-btn{
+  position: fixed;
+  top: 200px;
+  right: 30px;
+}
 
 /*モーダル本体の指定 + モーダル外側の背景の指定*/
 .modal-container{
@@ -240,12 +245,13 @@ header {
   height: 100%;
   text-align: center;
   background: rgba(0,0,0,50%);
-  padding: 40px 20px;
+  padding: 200px 40px 40px;
   overflow: auto;
   opacity: 0;
   visibility: hidden;
   transition: .3s;
   box-sizing: border-box;
+  overflow: scroll;
 }
 /*モーダル本体の擬似要素の指定*/
 .modal-container:before{
@@ -286,6 +292,7 @@ header {
   background: #fff;
   text-align: left;
   padding: 30px;
+  display: block;
 }
 
 /* table01 */
@@ -322,3 +329,42 @@ header {
   display: inline-block;
 }
 
+.card-group{
+  display: flex;
+}
+.card{
+  margin-bottom: 20px;
+}
+.post-image{
+    display: block;
+    height: 180px;
+    object-fit: cover;
+    width: 100%;
+}
+.card-body{
+  height: 114px;
+}
+.post_title{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.label-checkbox {
+    margin-right: 5px; /* ボタン同士の間隔 */
+}
+.label-checkbox input {
+    display: none; /* デフォルトのinputは非表示にする */
+}
+.label-checkbox span {
+    color: #333; /* 文字色を黒に */
+    font-size: 14px; /* 文字サイズを14pxに */
+    border: 1px solid #333; /* 淵の線を指定 */
+    border-radius: 20px; /* 角丸を入れて、左右が丸いボタンにする */
+    padding: 5px 20px; /* 上下左右に余白をトル */
+}
+.label-checkbox input:checked + span {
+    color: #FFF; /* 文字色を白に */
+    background: #FBB; /* 背景色を薄い赤に */
+    border: 1px solid #FBB; /* 淵の線を薄い赤に */
+}

@@ -1,3 +1,6 @@
+<div>
+  <%= flash[:notice] %>
+</div>
 <h5 class="text-center">ジャンルの新規作成</h5>
 <%= form_with model: @tag_genre, url: admin_tag_genres_path, method: :post do |f| %>
   <table class="tb01 mx-auto">

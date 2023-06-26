@@ -1,4 +1,6 @@
-
+<div>
+  <%= flash[:notice] %>
+</div>
 <h4 class="text-center mb-3">投稿詳細</h4>
 <table class="tb01 mx-auto">
   <tr>
@@ -54,12 +56,12 @@
       <table class="mx-auto">
         <tr>
           <% if @post.user == current_user %>
-          <td><%= link_to "編集", edit_post_path, class:"btn btn-success px-4 mt-3" %></td>
-          <td>
-            <%= form_with model: @post, url: post_path(@post.id), method: :delete do |f| %>
-              <%= f.submit '削除', data: { confirm: '本当に削除しますか？' }, class:"btn btn-danger px-4 mt-3" %>
-            <% end %>
-          </td>
+            <td><%= link_to "編集", edit_post_path, class:"btn btn-success px-4 mt-3" %></td>
+            <td>
+              <%= form_with model: @post, url: post_path(@post.id), method: :delete do |f| %>
+                <%= f.submit '削除', data: { confirm: '本当に削除しますか？' }, class:"btn btn-danger px-4 mt-3" %>
+              <% end %>
+            </td>
           <% end %>
         </tr>
       </table>

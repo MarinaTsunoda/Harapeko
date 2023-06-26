@@ -1,2 +1,56 @@
-<h1>Admin::Homes#top</h1>
-<p>Find me in app/views/admin/homes/top.html.erb</p>
+<div class="container">
+    <div class="row">
+      <h5 class="text-center mb-3">いいね数ランキング</h5>
+      <div class="card-group">
+        <% @post_favorite_ranks.each.with_index(1) do |post, i| %>
+          第<%= i %>位
+          <div class="col-6 col-md-4 col-lg-3">
+            <div id="post_<%= post.id %>">
+              <%= link_to post_path(post.id) do %>
+            
+                <div class="card">
+                  <div class="card-image">
+                    <% if post.image.attached? %>
+                      <%= image_tag post.image, class:"post-image img-fluid" %>
+                    <% else %>
+                      <%= image_tag 'no_image', class:"post-image img-fluid" %>
+                    <% end %>
+                  </div>
+                  <div class="card-body">
+                    <p class="post_title"><%= post.name %></p>
+                    <!--raty.jsで星表示ここから-->
+                    <div id="star_<%= post.id %>"></div>
+                    <script>
+                    $(document).on('turbolinks:load', function() {
+                      let elem = document.querySelector('#star_<%= post.id %>');
+                      if (elem == null) return;
+            
+                      elem.innerHTML = "";
+                      let opt = {
+                        starOn: "<%= asset_path('star-on.png') %>",
+                        starOff: "<%= asset_path('star-off.png') %>",
+                        starHalf: "<%= asset_path('star-half.png') %>",
+                        score: "<%= post.star %>",
+                        readOnly: true,
+                      };
+                      raty(elem, opt);
+                    });
+                    </script>
+                    <!--raty.jsで星表示ここまで-->
+                    <i class="fa fa-heart unfavorite-btn"></i>
+                    <%= post.favorites.count %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+        <h5 class="text-center mb-3">タグ週間ランキング</h5>
+        <% @tag_ranks.each.with_index(1) do |tag, i| %>
+          第<%= i %>位
+          <%= tag.name %>
+        <% end %>
+    
+</div>
