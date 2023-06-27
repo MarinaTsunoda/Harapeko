@@ -332,6 +332,7 @@ header {
 
 .card-group{
   display: flex;
+  flex-wrap: wrap;
 }
 .card{
   margin-bottom: 20px;
@@ -349,6 +350,14 @@ header {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+@media screen and (max-width: 575px) {
+  .post-image{
+    height: 120px;
+  }
+  .col-6{
+    padding: 0px;
+  }
 }
 
 .label-checkbox {
