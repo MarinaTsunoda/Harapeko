@@ -1,5 +1,4 @@
     
-    <!--raty.jsで星表示ここまで-->
     <% if current_user.favorited_by?(post.id) %>
       <%= link_to destroy_favorite_path(post), class: "favorite-link", method: :DELETE, remote: true do %>
         <i class="fa fa-heart unfavorite-btn"></i>

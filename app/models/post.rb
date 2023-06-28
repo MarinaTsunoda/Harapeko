@@ -12,4 +12,7 @@ class Post < ApplicationRecord
   validates :star, presence: true
   validates :price, presence: true
 
+  def self.search(search)
+    Post.where(['name LIKE ?', "%#{search}%"])
+  end
 end

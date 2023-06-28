@@ -1,1 +1,61 @@
-<%= render 'public/posts/list', posts: @posts %>
+<%= render 'list', posts:@posts %>
+
+<div class="modal-open filter-btn btn btn-secondary">絞り込み</div>
+
+<div class="modal-container">
+  <div class="modal-body">
+    <div class="modal-close">×</div>
+    <div class="modal-content">
+     <h5 class="modal-title mb-3" id="myModalLabel">絞り込み条件を選択</h5>
+      <div class='form-group'>
+        <%= form_with url: search_posts_path, local: true, method: :get do |f| %>
+          <p><strong>都道府県</strong></p>
+          <% Post.select(:shop_large_area).distinct.all.each do |post| %>
+            <label>
+              <%= f.check_box :area_names, {multiple: true}, post.shop_large_area, nil %>
+              <%= post.shop_large_area %>
+            </label>
+          <% end %><br>
+          <p class="mt-3"><strong>タグ</strong></p>
+          <% @tag_genres.each do |tag_genre| %>
+            <%= tag_genre.name %><br>
+            <%= f.collection_check_boxes(:tag_ids, Tag.where(tag_genre_id: tag_genre.id), :id, :name) do |tag| %>
+              <%= tag.label class: "label-checkbox" do %>
+               <%= tag.check_box %><span><%= tag.text %></span>
+              <% end %>
+            <% end %><br>
+          <% end %>
+          <div class="text-center">
+            <%= f.submit "検索", class:"btn btn-success" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(function(){
+  // 変数に要素を入れる
+  var open = $('.modal-open'),
+    close = $('.modal-close'),
+    container = $('.modal-container');
+  
+  //開くボタンをクリックしたらモーダルを表示する
+  open.on('click',function(){ 
+    container.addClass('active');
+    return false;
+  });
+  
+  //閉じるボタンをクリックしたらモーダルを閉じる
+  close.on('click',function(){  
+    container.removeClass('active');
+  });
+  
+  //モーダルの外側をクリックしたらモーダルを閉じる
+  $(document).on('click',function(e) {
+    if(!$(e.target).closest('.modal-body').length) {
+      container.removeClass('active');
+    }
+  });
+});
+</script>

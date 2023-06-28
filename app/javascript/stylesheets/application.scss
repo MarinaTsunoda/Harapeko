@@ -333,6 +333,7 @@ header {
 .card-group{
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
 }
 .card{
   margin-bottom: 20px;
@@ -381,4 +382,10 @@ header {
 
 input:invalid {
   border: solid 1px red;
+}
+
+.top-image2,
+.top-image4{
+  display: inline-block;
+  width: 13%;
 }

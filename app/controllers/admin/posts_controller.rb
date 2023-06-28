@@ -2,6 +2,7 @@ class Admin::PostsController < ApplicationController
   before_action :authenticate_admin!
   
   def index
+    @tag_genres = TagGenre.all
      if params[:user_id].present?
       @user = User.find(params[:user_id])
       @posts = Post.where(user_id: params[:user_id]).page(params[:page])
@@ -27,9 +28,10 @@ class Admin::PostsController < ApplicationController
       url = uri << "?key=" << api_key << "&hit_per_page=100" << "&id=" << URI.encode_www_form_component(id)
 
       uri = URI.parse(url)
-      http = Net::HTTP.new(uri.host, uri.port)
+      https = Net::HTTP.new(uri.host, 443)
+      https.use_ssl = true
       request = Net::HTTP::Get.new(uri.request_uri)
-      response = http.request(request)
+      response = https.request(request)
 
       hash = Hash.from_xml response.body
       if hash.has_key?("results")

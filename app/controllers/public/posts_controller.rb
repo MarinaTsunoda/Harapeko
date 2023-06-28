@@ -151,9 +151,8 @@ class Public::PostsController < ApplicationController
   def search
     params[:area_names].delete("") if params[:area_names].present?
     params[:tag_ids].delete("") if params[:tag_ids].present?
-    if params[:keyword].present?
-      @posts = Post.where('caption LIKE ?', "%#{params[:keyword]}%")
-      @keyword = params[:keyword]
+    if params[:search].present?
+      @posts = Post.search(params[:search])
     elsif params[:area_names].present? && params[:tag_ids].present?
       @posts = Post
       params[:area_names].each_with_index do |area, index|

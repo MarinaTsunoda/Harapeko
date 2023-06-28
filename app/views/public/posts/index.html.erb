@@ -1,15 +1,4 @@
-<div>
-  <%= flash[:notice] %>
-</div>
-<h4 class="text-center mb-3">
-  <% if params[:favorite_id].present? %>
-    お気に入り一覧
-  <% elsif params[:keyword].present? %>
-    検索結果
-  <% else %>
-    タイムライン
-  <% end %>
-</h4>
+<h5 class="text-center mb-3">タイムライン</h5>
 
 <%= render 'list', posts:@posts %>
 

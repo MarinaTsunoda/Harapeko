@@ -1,5 +1,5 @@
 class Admin::HomesController < ApplicationController
-  # before_action :authenticate_admin!
+  before_action :authenticate_admin!
   def top
     # 投稿のいいね数ランキング
     @post_favorite_ranks = Post.find(Favorite.group(:post_id).order('count(post_id) desc').limit(30).pluck(:post_id))

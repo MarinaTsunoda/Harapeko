@@ -1,24 +1,71 @@
-<%= image_tag @post.image %>
-<%= @post.name %>
-<%= @post.price %>
-<div id="star-rate<%= @post.id%>">
-  <script>
-    $('#star-rate<%= @post.id %>').empty();
-    $('#star-rate<%= @post.id%>').raty({
-      size      : 36,
-      starOff   : '<%= asset_path('star-off.png') %>',
-      starOn    : '<%= asset_path('star-on.png') %>',
-      half      : true,
-      readOnly: true,
-      score: <%= @post.star %>,
-    });
-  </script>
-</div>
-<%= @tags.each do |tag| %>
-  <%= tag.name %>
-<% end %>
-<%= image_tag @shop.dig('photo', 'pc', 's') %> 店名：<%= @shop["name"] %> : 住所：<%= @shop["address"] %>
+<h4 class="text-center mb-3">投稿詳細</h4>
+<table class="tb01 mx-auto">
+  <tr>
+    <td width="50%">
+      <%= link_to admin_user_path(@post.user.id) do %>
+        <%= @post.user.first_name %><%= @post.user.last_name %>
+      <% end %>
+    </td>
+    <td><%= @post.name %></td>
+  </tr>
+  <tr>
+    <td rowspan="4">
+      <%= image_tag @post.image, width:"75%" %>
+    </td>
+    <td><div id="star_<%= @post.id %>"</td>
+  </tr>
+  <tr>
+    <td><%= @post.price %>円</td>
+  </tr>
+  <tr>
+    <td>
+      <% @post.tags.each do |tag| %>
+        <div class="tag-btn">
+          <%= tag.name %>
+        </div>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+        <%= link_to @shop["urls"]["pc"] do %>
+          <div class="border p-3">
+            <%= image_tag @shop.dig('photo', 'pc', 's') %><br>店名：<%= @shop["name"] %><br>住所：<%= @shop["address"] %>
+          </div>
+        <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <i class="fa fa-heart favorite-btn"></i>
+      <%= @post.favorites.count %>
+    </td>
+    <td>
+      <table class="mx-auto">
+        <tr>
+          <td>
+            <%= form_with model: @post, url: admin_post_path(@post.id), method: :delete do |f| %>
+              <%= f.submit '削除', data: { confirm: '本当に削除しますか？' }, class:"btn btn-danger px-4 mt-3" %>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<script>
+$(document).on('turbolinks:load', function() {
+  let elem = document.querySelector('#star_<%= @post.id %>');
+  if (elem == null) return;
 
-<%= form_with model: @post, url: admin_post_path(@post.id), method: :delete do |f| %>
-  <%= f.submit '削除', data: { confirm: '本当に削除しますか？' }, class:"btn btn-danger px-4 mt-3 ml-3" %>
-<% end %>
+  elem.innerHTML = "";
+  let opt = {
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
+    score: "<%= @post.star %>",
+    readOnly: true,
+  };
+  raty(elem, opt);
+});
+</script>
