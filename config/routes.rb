@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     get 'users/my_page' => 'users#my_page'
     patch 'users/withdraw' => 'users#withdraw'
     get 'shops/search' => 'shops#search'
+    post 'posts/new'
     resources :users, only: [:show, :edit, :update]
 
     resources :posts do
