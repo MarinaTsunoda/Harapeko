@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     patch 'users/withdraw' => 'users#withdraw'
     get 'shops/search' => 'shops#search'
     post 'posts/new'
+    get 'users/unsubscribe' => 'users#unsubscribe'
     resources :users, only: [:show, :edit, :update]
 
     resources :posts do

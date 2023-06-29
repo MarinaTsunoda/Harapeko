@@ -7,12 +7,12 @@
 
   <table class="tb01 mx-auto">
      <tr>
-      <th>ニックネーム<span class="font-weight-normal text-danger">　※他のユーザーに表示されます</span></th>
+      <th>ニックネーム(20字以内)<span class="font-weight-normal text-danger">　※他のユーザーに表示されます</span></th>
       <td><%= f.text_field :user_name, required: true %></td>
     </tr>
     <tr>
-      <th>自己紹介文<span class="font-weight-normal text-danger">　※他のユーザーに表示されます</span></th>
-      <td><%= f.text_area :user_introduction, class:"w-100", required: true %></td>
+      <th>自己紹介文(140字以内)<span class="font-weight-normal text-danger">　※他のユーザーに表示されます</span></th>
+      <td><%= f.text_area :user_introduction, class:"w-100" %></td>
     </tr>
     <tr>
       <th>名前</th>
@@ -39,14 +39,6 @@
     <tr>
       <th>電話番号（ハイフンなし）</th>
       <td><%= f.text_field :telephone_number, required: true %></td>
-    </tr>
-    <tr>
-      <th>パスワード（６文字以上）</th>
-      <td><%= f.password_field :password, required: true %></td>
-    </tr>
-    <tr>
-      <th>パスワード（確認用）</th>
-      <td><%= f.password_field :password_confirmation, required: true %></td>
     </tr>
   </table>
   <div class="text-center">

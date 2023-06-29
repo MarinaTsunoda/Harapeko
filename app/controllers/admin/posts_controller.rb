@@ -5,9 +5,10 @@ class Admin::PostsController < ApplicationController
     @tag_genres = TagGenre.all
      if params[:user_id].present?
       @user = User.find(params[:user_id])
-      @posts = Post.where(user_id: params[:user_id]).page(params[:page])
+      @posts = Post.where(user_id: params[:user_id])
+      @posts = @posts.order(created_at: :desc)
      else
-      @posts = Post.all.page(params[:page])
+      @posts = Post.all.order(created_at: :desc)
      end
   end
 

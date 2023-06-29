@@ -1,6 +1,6 @@
 class Public::PostsController < ApplicationController
   before_action :authenticate_user!
-  
+
   def new
     @post = Post.new
     @tag_genres = TagGenre.all
@@ -97,12 +97,12 @@ class Public::PostsController < ApplicationController
     @tag_genres = TagGenre.all
     if params[:favorite_id].present?
       @posts = current_user.posts.where(favorite_id: params[:favorite_id])
-    elsif params[:visit_id].present?
-      @posts = current_user.posts.where(visit_id: params[:visit_id])
+      @posts = @posts.order(created_at: :desc)
     elsif params[:keyword].present?
       @posts = Post.where('caption LIKE ?', "%#{params[:keyword]}%")
+      @posts = @posts.order(created_at: :desc)
     else
-      @posts = Post.all
+      @posts = Post.all.order(created_at: :desc)
     end
   end
 
@@ -153,23 +153,29 @@ class Public::PostsController < ApplicationController
     params[:tag_ids].delete("") if params[:tag_ids].present?
     if params[:search].present?
       @posts = Post.search(params[:search])
+      @posts = @posts.order(created_at: :desc)
     elsif params[:area_names].present? && params[:tag_ids].present?
       @posts = Post
       params[:area_names].each_with_index do |area, index|
         if index == 0
           @posts = @posts.joins(:post_tag_relations).where('shop_large_area LIKE ?', "%#{area}%")
+          @posts = @posts.order(created_at: :desc)
         else
           @posts = @posts.or(Post.joins(:post_tag_relations).where('shop_large_area LIKE ?', "%#{area}%"))
+          @posts = @posts.order(created_at: :desc)
         end
       end
-      @posts = @posts.or(Post.joins(:post_tag_relations).where(post_tag_relations: {tag_id: params[:tag_ids]})).distinct
+      @posts = @posts.and(Post.joins(:post_tag_relations).where(post_tag_relations: {tag_id: params[:tag_ids]})).distinct
+      @posts = @posts.order(created_at: :desc)
     elsif params[:area_names].present?
       @posts = Post
       params[:area_names].each_with_index do |area, index|
         if index == 0
           @posts = @posts.where('shop_large_area LIKE ?', "%#{area}%")
+          @posts = @posts.order(created_at: :desc)
         else
           @posts = @posts.or(Post.where('shop_large_area LIKE ?', "%#{area}%"))
+          @posts = @posts.order(created_at: :desc)
         end
       end
     elsif params[:tag_ids].present?
@@ -177,12 +183,14 @@ class Public::PostsController < ApplicationController
       params[:tag_ids].each_with_index do |tag, index|
         if index == 0
           @posts = Tag.find(tag).posts
+          @posts = @posts.order(created_at: :desc)
         else
           @posts = @posts.or(Tag.find(tag).posts)
+          @posts = @posts.order(created_at: :desc)
         end
       end
     else
-      @posts = Post.all
+      @posts = Post.all.order(created_at: :desc)
     end
   end
 

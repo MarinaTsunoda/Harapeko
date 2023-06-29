@@ -2,6 +2,9 @@ class Public::UsersController < ApplicationController
   before_action :authenticate_user!
   def edit
     @user = current_user
+    unless @user.id == current_user.id
+      redirect_to posts_path
+    end
   end
 
   def update
@@ -17,6 +20,9 @@ class Public::UsersController < ApplicationController
 
   def my_page
     @posts = current_user.posts.all
+  end
+  
+  def unsubscribe
   end
 
   def withdraw

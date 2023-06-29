@@ -47,9 +47,7 @@
       <%= link_to "登録情報編集", edit_user_path(current_user.id),class:"btn btn-success px-4 mt-3 mr-4" %>
     </td>
     <td>
-      <%= form_with model: @user, url: users_withdraw_path, method: :patch do |f| %>
-        <%= f.submit '退会する', data: { confirm: '本当に退会しますか？' }, class:"btn btn-danger px-4 mt-3 ml-4" %>
-      <% end %>
+      <%= link_to '退会する', users_unsubscribe_path, class:"btn btn-danger px-4 mt-3 ml-4" %>
     </td>
   </tr>
 </table>

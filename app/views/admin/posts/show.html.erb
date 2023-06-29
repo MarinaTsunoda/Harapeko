@@ -10,7 +10,11 @@
   </tr>
   <tr>
     <td rowspan="4">
-      <%= image_tag @post.image, width:"75%" %>
+      <% if @post.image.attached? %>
+        <%= image_tag @post.image, width:"75%" %>
+      <% else %>
+        <%= image_tag 'no_image', width:"75%" %>
+      <% end %>
     </td>
     <td><div id="star_<%= @post.id %>"</td>
   </tr>

@@ -25,6 +25,11 @@ class User < ApplicationRecord
     end
   end
   
+  validates :user_name, presence: true, length: { maximum: 20 }
+  validates :user_introduction, length: { maximum: 140 }
+  validates :postal_code, length: { is: 7 }
+  
+  
   def favorited_by?(post_id)
     favorites.where(post_id: post_id).exists?
   end

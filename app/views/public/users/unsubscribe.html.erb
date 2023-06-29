@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 mx-auto text-center mt-5">
+      <h4>本当に退会しますか？</h4>
+      <h4>
+        退会すると、会員登録情報や<br>
+        投稿等が閲覧できなくなります。<br>
+        退会する場合は、「退会する」をクリックしてください。
+      </h4>
+      <div class="btn d-flex justify-content-center">
+        <%= link_to '退会しない', users_my_page_path, class:"btn btn-primary px-4 mt-3 mr-3" %>
+        <%=form_with model: @user, url: users_withdraw_path, method: :patch do |f| %>
+          <%= f.submit '退会する', data: { confirm: '本当に退会しますか？' }, class:"btn btn-danger px-4 mt-3 ml-3" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

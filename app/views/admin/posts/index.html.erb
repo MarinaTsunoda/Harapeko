@@ -1,3 +1,4 @@
+<h5 class="text-center mb-3">投稿一覧</h5>
 <%= render 'list', posts:@posts %>
 
 <div class="modal-open filter-btn btn btn-secondary">絞り込み</div>
@@ -39,18 +40,18 @@
   var open = $('.modal-open'),
     close = $('.modal-close'),
     container = $('.modal-container');
-  
+
   //開くボタンをクリックしたらモーダルを表示する
-  open.on('click',function(){ 
+  open.on('click',function(){
     container.addClass('active');
     return false;
   });
-  
+
   //閉じるボタンをクリックしたらモーダルを閉じる
-  close.on('click',function(){  
+  close.on('click',function(){
     container.removeClass('active');
   });
-  
+
   //モーダルの外側をクリックしたらモーダルを閉じる
   $(document).on('click',function(e) {
     if(!$(e.target).closest('.modal-body').length) {

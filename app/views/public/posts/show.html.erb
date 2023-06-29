@@ -3,14 +3,18 @@
   <tr>
     <td width="50%">
       <%= link_to user_path(@post.user.id) do %>
-        <%= @post.user.first_name %><%= @post.user.last_name %>
+        <%= @post.user.last_name %><%= @post.user.first_name %>
       <% end %>
     </td>
     <td><%= @post.name %></td>
   </tr>
   <tr>
     <td rowspan="4">
-      <%= image_tag @post.image, width:"75%" %>
+      <% if @post.image.attached? %>
+        <%= image_tag @post.image, width:"75%" %>
+      <% else %>
+        <%= image_tag 'no_image', width:"75%" %>
+      <% end %>
     </td>
     <td><div id="star_<%= @post.id %>"</td>
   </tr>
@@ -37,17 +41,8 @@
   </tr>
   <tr>
     <td>
-      <% if current_user.favorited_by?(@post.id) %>
-        <%= link_to destroy_favorite_path(@post), class: "favorite-link", method: :DELETE, remote: true do %>
-          <i class="fa fa-heart unfavorite-btn"></i>
-          <% end %>
-        <%= @post.favorites.count %>
-      <% else %>
-        <%= link_to create_favorite_path(@post), class: "favorite-link", method: :POST, remote: true do %>
-          <i class="fa fa-heart favorite-btn"></i>
-          <% end %>
-        <%= @post.favorites.count %>
-      <% end %>
+      <div id="post_<%= @post.id %>">
+      <%= render 'post', post: @post %>
     </td>
     <td>
       <table class="mx-auto">
@@ -55,7 +50,7 @@
           <% if @post.user == current_user %>
             <td><%= link_to "編集", edit_post_path, class:"btn btn-success px-4 mt-3" %></td>
             <td>
-              <%= form_with model: @post, url: post_path(@post.id), method: :delete do |f| %>
+              <%= form_with model: Post, url: post_path(@post.id), method: :delete do |f| %>
                 <%= f.submit '削除', data: { confirm: '本当に削除しますか？' }, class:"btn btn-danger px-4 mt-3" %>
               <% end %>
             </td>
