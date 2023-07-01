@@ -1,4 +1,4 @@
-# class Public::VisitsController < ApplicationController
+class Public::VisitsController < ApplicationController
 # before_action :authenticate_user!
 #  def create
 #     post = Post.find(params[post_id])
@@ -12,4 +12,4 @@
 #     visit.destroy
 #     redirect_to posts_path
 #  end
-# end
+end
