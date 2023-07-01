@@ -17,7 +17,7 @@ class User < ApplicationRecord
       user.first_name = "閲覧用"
       user.last_name_kana = "ゲスト"
       user.first_name_kana = "エツランヨウ"
-      user.birth_date = 1989-1-1
+      user.birth_date = Date.parse("2000-1-1").strftime("%Y-%m-%d")
       user.sex = 2
       user.postal_code = "0000000"
       user.address = "東京都足立区1-1-1"
