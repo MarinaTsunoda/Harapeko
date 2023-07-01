@@ -12,6 +12,19 @@ ja:
           restrict_dependent_destroy:
             has_one: "%{record}が存在しているので削除できません"
             has_many: "%{record}が存在しているので削除できません"
+      attributes:
+        user:
+          user_name: "ニックネーム"
+          user_introduction: "自己紹介文"
+          last_name: "姓"
+          first_name: "名"
+          last_name_kana: "姓（カナ）"
+          first_name_kana: "名（カナ）"
+          sex: "性別"
+          birth_date: "誕生日"
+          postal_code: "郵便番号"
+          address: "住所"
+          telephone_number: "電話番号"
     date:
       abbr_day_names:
       - 日
