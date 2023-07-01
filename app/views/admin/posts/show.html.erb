@@ -3,7 +3,7 @@
   <tr>
     <td width="50%">
       <%= link_to admin_user_path(@post.user.id) do %>
-        <%= @post.user.first_name %><%= @post.user.last_name %>
+        <%= @post.user.last_name %><%= @post.user.first_name %>
       <% end %>
     </td>
     <td><%= @post.name %></td>
